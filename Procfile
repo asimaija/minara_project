@@ -1,1 +1,1 @@
-web: gunicorn minara_project.wsgi:application
+web: gunicorn dodos_code.wsgi:application
