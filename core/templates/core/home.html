@@ -480,11 +480,12 @@ nav.scrolled {
 /* ── WORK ── */
 .work-section { background: var(--black2); }
 .work-head { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 5rem; }
-.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--black2); align-content: start; }
+.work-grid .work-card { border: 1px solid var(--border); border-collapse: collapse; }
 .work-card {
   background: var(--black2); padding: 2.2rem 2rem;
   position: relative; overflow: hidden; transition: all 0.4s;
-  transform-style: preserve-3d;
+  transform-style: preserve-3d; min-height: 0;
 }
 .work-card::before {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0;
@@ -987,7 +988,7 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
   </div>
   <div class="work-grid">
     {% if projects %}{% for project in projects %}
-    <div class="work-card reveal{% cycle '' ' d1' ' d2' %}">
+    <div class="work-card reveal{% if forloop.counter|divisibleby:3 %} d2{% elif forloop.counter|add:"-1"|divisibleby:3 %} d1{% endif %}">
       <div class="wc-n">{% if forloop.counter < 10 %}0{{ forloop.counter }}{% else %}{{ forloop.counter }}{% endif %}</div>
       <span class="wc-icon">{% with cat=project.category|lower %}{% if "government" in cat or "portal" in cat %}🏛️{% elif "market" in cat or "service" in cat %}🔧{% elif "deal" in cat or "shop" in cat or "e-commerce" in cat or "ecommerce" in cat %}🛍️{% elif "islam" in cat or "quran" in cat or "athan" in cat or "religio" in cat %}🕌{% elif "health" in cat or "lab" in cat or "medic" in cat %}💊{% elif "mobile" in cat or "app" in cat or "flutter" in cat %}📱{% elif "ai" in cat or "ml" in cat or "llm" in cat %}🤖{% elif "web" in cat or "django" in cat or "react" in cat %}🌐{% elif "automati" in cat or "scraping" in cat %}⚙️{% elif "educati" in cat %}📚{% else %}🚀{% endif %}{% endwith %}</span>
       <div class="wc-cat">{{ project.category }}</div>
