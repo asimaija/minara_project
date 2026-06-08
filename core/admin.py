@@ -10,7 +10,18 @@ class ServiceAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'store_link', 'created_at']
     list_editable = ['store_link']
-    fields = ['title', 'category', 'description', 'tech_stack', 'color', 'store_link', 'thumbnail']
+    fieldsets = (
+        ('Basic Info', {
+            'fields': ('title', 'category', 'description'),
+        }),
+        ('Tech & Links', {
+            'fields': ('tech_stack', 'color', 'store_link', 'thumbnail'),
+            'description': (
+                '⚠️ tech_stack: comma-separated e.g.  Django, React, PostgreSQL  — '
+                'thumbnail is optional (emoji icon shown if blank)'
+            ),
+        }),
+    )
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):

@@ -992,9 +992,29 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
     <p class="sec-sub reveal d2" style="margin-top:auto">Real products. Real users. Real impact — built to run at scale.</p>
   </div>
   <div class="work-grid">
-    {% if projects %}{% for project in projects %}
-    <div class="work-card reveal"><div class="wc-n">0{{ forloop.counter }}</div>{% if project.thumbnail %}<img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="wc-thumb">{% else %}<span class="wc-icon">📦</span>{% endif %}<div class="wc-cat">{{ project.category }}</div><div class="wc-title">{{ project.title }}</div><p class="wc-desc">{{ project.description|truncatechars:120 }}</p><div class="wc-tags">{% for tech in project.tech_stack|split:"," %}<span class="wc-tag">{{ tech }}</span>{% endfor %}</div>{% if project.store_link %}<a href="{{ project.store_link }}" target="_blank" rel="noopener" class="wc-link">View App ↗</a>{% endif %}</div>
-    {% endfor %}{% else %}
+    {% if projects %}
+      {% for project in projects %}
+      <div class="work-card reveal {% cycle '' 'd1' 'd2' %}">
+        <div class="wc-n">0{{ forloop.counter }}</div>
+        {% if project.thumbnail %}
+          <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="wc-thumb">
+        {% else %}
+          <span class="wc-icon">📦</span>
+        {% endif %}
+        <div class="wc-cat">{{ project.category }}</div>
+        <div class="wc-title">{{ project.title }}</div>
+        <p class="wc-desc">{{ project.description|truncatechars:120 }}</p>
+        <div class="wc-tags">
+          {% for tech in project.tech_stack|split:"," %}
+            <span class="wc-tag">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        {% if project.store_link %}
+          <a href="{{ project.store_link }}" target="_blank" rel="noopener" class="wc-link">View App ↗</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    {% else %}
     <div class="work-card reveal"><div class="wc-n">01</div><span class="wc-icon">🏛️</span><div class="wc-cat">Government Portal</div><div class="wc-title">Al-Nasar Services</div><p class="wc-desc">Integrated services portal with AI-powered routing and real-time document handling for 100K+ citizens/month.</p><div class="wc-tags"><span class="wc-tag">Django</span><span class="wc-tag">React</span><span class="wc-tag">PostgreSQL</span></div><a href="https://play.google.com/store/apps/details?id=com.integcubes.alnasar" target="_blank" rel="noopener" class="wc-link">Play Store ↗</a></div>
     <div class="work-card reveal d1"><div class="wc-n">02</div><span class="wc-icon">🔧</span><div class="wc-cat">Services Marketplace</div><div class="wc-title">Odlay — Services & Handy</div><p class="wc-desc">On-demand home services marketplace — book experts in minutes with live tracking and in-app payments.</p><div class="wc-tags"><span class="wc-tag">Flutter</span><span class="wc-tag">Firebase</span><span class="wc-tag">Maps API</span></div><a href="https://play.google.com/store/apps/details?id=com.odlay.eservices.ServicesApp" target="_blank" rel="noopener" class="wc-link">Play Store ↗</a></div>
     <div class="work-card reveal d2"><div class="wc-n">03</div><span class="wc-icon">🛍️</span><div class="wc-cat">Deal Aggregator</div><div class="wc-title">SupDeals Platform</div><p class="wc-desc">AI-curated deals from 30+ sources. 10K daily active visitors with intelligent categorisation &amp; price tracking.</p><div class="wc-tags"><span class="wc-tag">Python</span><span class="wc-tag">Django</span><span class="wc-tag">Celery</span></div><a href="https://play.google.com/store/apps/details?id=com.odlay.offers&hl=en" target="_blank" rel="noopener" class="wc-link">Play Store ↗</a></div>
