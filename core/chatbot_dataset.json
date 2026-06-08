@@ -1,0 +1,102 @@
+[
+  {
+    "pattern": ["hello", "hi", "hey", "salam", "assalam", "aoa", "helo", "hii", "good morning", "good evening", "good afternoon"],
+    "response": "Hello! 👋 Welcome to Dodos Code! I'm your AI assistant. I can help you with info about our services, pricing, portfolio, and how to get started. What would you like to know?"
+  },
+  {
+    "pattern": ["who are you", "what are you", "introduce yourself", "tell me about dodos code", "what is dodos code", "apna batao", "company kya hai"],
+    "response": "We are **Dodos Code** 🚀 — an AI-native digital studio based in Lahore, Pakistan, serving clients globally (USA, UK, UAE, Europe, Australia). Founded in 2023, we specialize in building AI-powered web apps, mobile apps, and automation systems. 50+ products shipped, zero compromises on quality!"
+  },
+  {
+    "pattern": ["services", "kya karte ho", "what do you do", "what do you offer", "kya offer", "kya banate ho", "capabilities"],
+    "response": "We offer 6 core services 💼:\n\n1. **Web Development** — Django, React, Next.js, PostgreSQL\n2. **AI & LLM Integration** — GPT-4o, Claude, Groq, RAG pipelines\n3. **Mobile Apps** — Flutter, React Native (iOS & Android)\n4. **UI/UX Design** — Figma, design systems, prototypes\n5. **Automation & Scraping** — n8n, Playwright, Python\n6. **E-Commerce** — EasyPaisa, JazzCash, Stripe, full shops\n\nWhich service interests you most?"
+  },
+  {
+    "pattern": ["web development", "website", "web app", "website banana", "web banao", "django", "react", "next.js"],
+    "response": "Our Web Development stack is top-tier 🌐:\n\n**Frontend:** React, Next.js, Vue.js, Tailwind CSS\n**Backend:** Django, FastAPI, Node.js\n**Database:** PostgreSQL, MySQL, MongoDB, Redis\n**Cloud:** AWS, DigitalOcean, Vercel, Railway\n**DevOps:** Docker, GitHub Actions CI/CD\n\nPricing starts at **$500** for basic sites, **$2,000+** for full platforms. Want a free quote?"
+  },
+  {
+    "pattern": ["ai", "artificial intelligence", "chatbot", "llm", "gpt", "machine learning", "automation ai", "ai integration", "ai banana"],
+    "response": "AI & LLM Integration is our specialty 🤖:\n\n**LLMs:** GPT-4o, Claude 3.5, Gemini, Llama 3, Groq\n**Frameworks:** LangChain, LlamaIndex, CrewAI, AutoGen\n**Features:** RAG pipelines, AI chatbots, fine-tuning, vector DBs (Pinecone, ChromaDB)\n\nPricing: **$800** for simple chatbot | **$3,000+** for full AI agent systems\n\nWant an AI chatbot like me for your business? 😊"
+  },
+  {
+    "pattern": ["mobile app", "app banana", "flutter", "android", "ios", "react native", "mobile development"],
+    "response": "We build stunning mobile apps 📱:\n\n**Cross-Platform:** Flutter (one codebase for iOS & Android)\n**Native:** Swift (iOS), Kotlin (Android)\n**Features:** Firebase, push notifications, in-app purchases, offline mode\n\n**Pricing:**\n- MVP app: $1,500 – $4,000\n- Full-featured app: $4,000 – $12,000+\n\nOur Quran & Athan app has **50,000+ downloads with 4.8★**! Want similar results?"
+  },
+  {
+    "pattern": ["ui", "ux", "design", "figma", "logo", "branding", "design system", "prototype", "ui ux"],
+    "response": "Our UI/UX Design team creates pixel-perfect experiences 🎨:\n\n**Tools:** Figma, Adobe XD, Framer, Principle\n**Deliverables:** Wireframes, hi-fi mockups, clickable prototypes, design systems, brand kits\n\n**Pricing:**\n- Landing page design: $300\n- Full design system: $800+\n- Complete brand kit: $500+\n\nWant to see our portfolio?"
+  },
+  {
+    "pattern": ["automation", "scraping", "n8n", "zapier", "playwright", "scrape", "data", "workflow", "automate"],
+    "response": "We automate everything 🔧:\n\n**Tools:** n8n, Zapier, Make (Integromat), Playwright, Puppeteer, Scrapy\n**Use Cases:** Lead generation, data pipelines, CRM integrations, report automation, web scraping\n\n**Pricing:** $400 for simple automation | $1,500+ for complex pipelines\n\nTell us what you want to automate!"
+  },
+  {
+    "pattern": ["ecommerce", "e-commerce", "online store", "shop", "selling", "easypais", "jazzCash", "stripe", "payment"],
+    "response": "We build powerful e-commerce platforms 🛒:\n\n**Platforms:** Custom Django shops, WooCommerce, Shopify integrations\n**Payments:** Stripe, PayPal, EasyPaisa, JazzCash, Meezan Bank\n**Features:** Multi-vendor, inventory, analytics, coupons, real-time tracking\n\n**Pricing:**\n- Basic shop: $1,000\n- Full multi-vendor platform: $4,000+\n\nWe built PakShop Pro with full EasyPaisa/JazzCash integration!"
+  },
+  {
+    "pattern": ["price", "pricing", "cost", "kitna", "rate", "charges", "how much", "budget", "fee", "paisa", "money", "expensive", "cheap"],
+    "response": "Our pricing is transparent and fixed 💰:\n\n| Service | Range |\n|---------|-------|\n| Simple website | $500 – $2,000 |\n| Full platform | $2,000 – $8,000 |\n| Enterprise | $8,000 – $20,000+ |\n| AI Chatbot | $800 – $2,500 |\n| AI Agent System | $3,000 – $10,000+ |\n| Mobile App MVP | $1,500 – $4,000 |\n| UI/UX Design | $300 – $3,000 |\n| Automation | $400 – $3,000 |\n\n**Payment:** 30% upfront | 40% mid | 30% on delivery\n**Accepted:** Bank transfer, Wise, PayPal, USDT crypto\n\nWant a free custom quote for your project?"
+  },
+  {
+    "pattern": ["time", "how long", "timeline", "duration", "kitna waqt", "deadline", "delivery", "when", "fast"],
+    "response": "Our delivery timelines ⏱️:\n\n- **Simple websites:** 1–3 weeks\n- **MVPs:** 3–6 weeks\n- **Full platforms:** 6–16 weeks\n- **Mobile apps:** 4–12 weeks\n- **AI chatbot:** 1–2 weeks\n- **UI/UX Design:** 3–7 days\n\nWe do agile sprints with daily/weekly updates so you always know the status. Rush delivery available — ask us!"
+  },
+  {
+    "pattern": ["contact", "reach", "whatsapp", "email", "call", "phone", "rabta", "contact karo", "get in touch", "talk"],
+    "response": "Reach us anytime 📞:\n\n- **WhatsApp:** +92 300 0000000 (fastest — reply within 2 hours)\n- **Email:** hello@dodoscode.com\n- **Office Hours:** Monday–Saturday, 10 AM – 8 PM PKT\n- **Discovery Call:** Free 30-minute session — just message us on WhatsApp!\n\nWe respond within 2 hours on WhatsApp. Message now!"
+  },
+  {
+    "pattern": ["portfolio", "projects", "work", "examples", "kaam", "built", "made", "previous work", "past projects"],
+    "response": "Our live portfolio 🏆:\n\n1. **E-Services Portal** — 100K+ citizens/month | Django + React + AWS\n2. **Quran & Athan App** — 50K+ downloads, 4.8★ Play Store | Flutter + Firebase\n3. **SupDeals Platform** — 10K+ daily visitors | AI-curated deals | Next.js\n4. **Nayab Lab System** — Complete LIMS with AI anomaly detection\n5. **SmartHR Automator** — 70% faster hiring with AI resume screening\n6. **PakShop Pro** — Full e-commerce with EasyPaisa/JazzCash\n\nWant to see detailed case studies? Ask about any specific project!"
+  },
+  {
+    "pattern": ["process", "how do you work", "steps", "workflow", "kaise karte ho", "start kaise karen", "how to start"],
+    "response": "Our proven 7-step process 📋:\n\n1. **Discovery Call** (Free, 30 min) — understand your goals\n2. **Proposal in 24h** — detailed scope, timeline & fixed price\n3. **Design Sprint** (3–5 days) — wireframes & mockups\n4. **Development** (2–12 weeks) — agile sprints, daily updates\n5. **QA & Testing** (1–2 weeks) — automated + manual testing\n6. **Launch & Handover** — deployment + full documentation\n7. **30-day Free Support** — bug fixes & tweaks post-launch\n\nReady to start? Book a free discovery call!"
+  },
+  {
+    "pattern": ["nda", "confidential", "secret", "privacy", "secure", "security"],
+    "response": "100% confidential 🔒 We sign NDAs before any project discussion. Your ideas, code, and business data are completely protected. We never share client work without explicit permission."
+  },
+  {
+    "pattern": ["support", "maintenance", "after launch", "post launch", "bug fix", "update", "maintain"],
+    "response": "We don't disappear after launch! 🛡️\n\n- **30 days FREE** post-launch support (bug fixes & minor tweaks)\n- **Monthly maintenance packages** from $200/month\n- **On-demand support** — just WhatsApp us anytime\n- **Code handover** — full source code + documentation always provided\n\nWe're your long-term tech partner, not a one-time vendor."
+  },
+  {
+    "pattern": ["startup", "mvp", "idea", "new project", "concept", "early stage", "new business"],
+    "response": "We LOVE startups! 🚀 \n\nWe have startup-friendly MVP pricing and understand the need for speed and lean budgets. We've helped early-stage startups go from idea to live product in as little as 3 weeks.\n\n**Startup Package:** Fixed scope MVPs starting at $500\n\nShare your idea with us — we'll tell you exactly what's possible within your budget. Free consultation on WhatsApp!"
+  },
+  {
+    "pattern": ["team", "who", "developers", "engineers", "staff", "employees", "expertise"],
+    "response": "Meet the Dodos Code team 👨‍💻:\n\n- **12+ engineers, designers & AI specialists**\n- All **senior-level** — no juniors doing client work\n- Expertise in **Django, React, Flutter, AI/ML, DevOps**\n- Based in **Lahore, Pakistan** — working with global clients\n- 3+ years building AI-native products\n\nSmall enough to care deeply, skilled enough to compete with anyone globally."
+  },
+  {
+    "pattern": ["location", "where", "lahore", "pakistan", "office", "kahan", "city", "country"],
+    "response": "We're based in **Lahore, Pakistan** 🇵🇰 but we work with clients globally — USA, UK, UAE, Europe, Australia, and beyond.\n\nAll communication happens remotely via WhatsApp, Slack, or email. Time zones are never a problem — we adapt to your schedule!"
+  },
+  {
+    "pattern": ["why choose", "why dodos", "what makes you different", "better than", "unique", "special", "alag kya ho"],
+    "response": "Why clients choose Dodos Code 💎:\n\n✅ **AI-Native** — Intelligence built in from day one, not bolted on\n✅ **Senior Engineers Only** — No juniors on client projects\n✅ **Fixed Pricing** — No surprise bills, ever\n✅ **Fast Delivery** — MVPs in 3–6 weeks\n✅ **Always Reachable** — Reply within 2 hours on WhatsApp\n✅ **30-day Free Support** — We stay after launch\n✅ **Global Portfolio** — 50+ shipped products worldwide\n\nWe're not just a vendor — we're your long-term tech partner."
+  },
+  {
+    "pattern": ["fix", "bug", "existing project", "old project", "repair", "improve", "refactor", "help with existing", "already have"],
+    "response": "Yes! We fix and improve existing projects 🔧\n\nWe offer:\n- **Code Audits** — find issues and improve performance\n- **Bug Fixes** — fast turnaround on critical bugs\n- **Feature Additions** — add new capabilities to existing apps\n- **Complete Refactors** — rewrite messy code into clean architecture\n- **Performance Optimization** — speed up slow apps\n\nJust share your project details and we'll give you a free assessment!"
+  },
+  {
+    "pattern": ["payment", "pay", "bank", "transfer", "paypal", "crypto", "usdt", "wise", "dollar", "pkr"],
+    "response": "We accept multiple payment methods 💳:\n\n- **Bank Transfer** (Pakistan & International)\n- **Wise** (formerly TransferWise)\n- **PayPal**\n- **Crypto** — USDT (TRC20 / ERC20)\n- **EasyPaisa / JazzCash** (Pakistan clients)\n\n**Payment Schedule:**\n- 30% upfront to start\n- 40% at mid-project milestone\n- 30% on final delivery\n\nNo full payment required upfront — we believe in milestone-based trust!"
+  },
+  {
+    "pattern": ["free", "consultation", "quote", "estimate", "proposal"],
+    "response": "Yes, completely FREE! 🎁\n\n- **Free 30-minute Discovery Call** — no obligation\n- **Free Project Proposal** — delivered within 24 hours\n- **Free Quote** — just describe your project\n\nNo pressure, no hard selling. We just want to understand your vision and tell you honestly if we're the right fit.\n\nStart by messaging us on WhatsApp — it's the fastest way!"
+  },
+  {
+    "pattern": ["thanks", "thank you", "shukriya", "great", "awesome", "perfect", "nice", "good", "wonderful"],
+    "response": "You're welcome! 😊 It's our pleasure to help. If you have any more questions about our services or want to start a project, we're always here. Don't hesitate to reach out on WhatsApp anytime!"
+  },
+  {
+    "pattern": ["bye", "goodbye", "cya", "later", "khuda hafiz", "take care"],
+    "response": "Goodbye! 👋 It was great chatting with you. Whenever you're ready to build something amazing, we're here at Dodos Code. Have a wonderful day! 🚀"
+  }
+]
