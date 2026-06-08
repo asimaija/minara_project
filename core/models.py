@@ -17,6 +17,7 @@ class Project(models.Model):
     tech_stack = models.CharField(max_length=200)
     color = models.CharField(max_length=20, default='cyan')
     store_link = models.URLField(blank=True, null=True, help_text="App Store / Play Store / Live URL")
+    thumbnail = models.ImageField(upload_to='projects/', blank=True, null=True, help_text="Project screenshot or logo (recommended: 800x500px)")
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title

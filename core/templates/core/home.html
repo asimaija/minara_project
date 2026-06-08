@@ -480,13 +480,11 @@ nav.scrolled {
 /* ── WORK ── */
 .work-section { background: var(--black2); }
 .work-head { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 5rem; }
-.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
-.work-grid .work-card { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.work-grid .work-card:nth-child(3n) { border-right: none; }
+.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
 .work-card {
   background: var(--black2); padding: 2.2rem 2rem;
   position: relative; overflow: hidden; transition: all 0.4s;
-  transform-style: preserve-3d; min-height: 0;
+  transform-style: preserve-3d;
 }
 .work-card::before {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0;
@@ -530,6 +528,12 @@ nav.scrolled {
   transition: all 0.3s;
 }
 .wc-link:hover { color: var(--maroon4); border-color: var(--maroon4); }
+.wc-thumb {
+  width: 100%; height: 180px; object-fit: cover;
+  border-radius: 4px; margin-bottom: 1rem;
+  border: 1px solid var(--border);
+  display: block;
+}
 
 /* ── ABOUT ── */
 .about-section { background: var(--black); }
@@ -760,7 +764,7 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
   .hero-h1{font-size:4.5rem}
   .services-head,.work-head,.about-grid,.contact-grid,.footer-inner{grid-template-columns:1fr;gap:2.5rem}
   .numbers-band,.process-grid{grid-template-columns:1fr 1fr}
-  .work-grid{grid-template-columns:1fr} .work-grid .work-card{border-right:none}
+  .work-grid{grid-template-columns:1fr}
   .tech-grid{grid-template-columns:1fr}
   .tech-section-inner{grid-template-columns:1fr}
   .tech-cube-scene{display:none}
@@ -989,15 +993,7 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
   </div>
   <div class="work-grid">
     {% if projects %}{% for project in projects %}
-    <div class="work-card reveal{% if forloop.counter|divisibleby:3 %} d2{% elif forloop.counter|add:"-1"|divisibleby:3 %} d1{% endif %}">
-      <div class="wc-n">{% if forloop.counter < 10 %}0{{ forloop.counter }}{% else %}{{ forloop.counter }}{% endif %}</div>
-      <span class="wc-icon">{% with cat=project.category|lower %}{% if "government" in cat or "portal" in cat %}🏛️{% elif "market" in cat or "service" in cat %}🔧{% elif "deal" in cat or "shop" in cat or "e-commerce" in cat or "ecommerce" in cat %}🛍️{% elif "islam" in cat or "quran" in cat or "athan" in cat or "religio" in cat %}🕌{% elif "health" in cat or "lab" in cat or "medic" in cat %}💊{% elif "mobile" in cat or "app" in cat or "flutter" in cat %}📱{% elif "ai" in cat or "ml" in cat or "llm" in cat %}🤖{% elif "web" in cat or "django" in cat or "react" in cat %}🌐{% elif "automati" in cat or "scraping" in cat %}⚙️{% elif "educati" in cat %}📚{% else %}🚀{% endif %}{% endwith %}</span>
-      <div class="wc-cat">{{ project.category }}</div>
-      <div class="wc-title">{{ project.title }}</div>
-      <p class="wc-desc">{{ project.description|truncatechars:120 }}</p>
-      <div class="wc-tags">{% for tech in project.tech_stack|split:"," %}<span class="wc-tag">{{ tech }}</span>{% endfor %}</div>
-      {% if project.store_link %}<a href="{{ project.store_link }}" target="_blank" rel="noopener" class="wc-link">View App ↗</a>{% endif %}
-    </div>
+    <div class="work-card reveal"><div class="wc-n">0{{ forloop.counter }}</div>{% if project.thumbnail %}<img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="wc-thumb">{% else %}<span class="wc-icon">📦</span>{% endif %}<div class="wc-cat">{{ project.category }}</div><div class="wc-title">{{ project.title }}</div><p class="wc-desc">{{ project.description|truncatechars:120 }}</p><div class="wc-tags">{% for tech in project.tech_stack|split:"," %}<span class="wc-tag">{{ tech }}</span>{% endfor %}</div>{% if project.store_link %}<a href="{{ project.store_link }}" target="_blank" rel="noopener" class="wc-link">View App ↗</a>{% endif %}</div>
     {% endfor %}{% else %}
     <div class="work-card reveal"><div class="wc-n">01</div><span class="wc-icon">🏛️</span><div class="wc-cat">Government Portal</div><div class="wc-title">Al-Nasar Services</div><p class="wc-desc">Integrated services portal with AI-powered routing and real-time document handling for 100K+ citizens/month.</p><div class="wc-tags"><span class="wc-tag">Django</span><span class="wc-tag">React</span><span class="wc-tag">PostgreSQL</span></div><a href="https://play.google.com/store/apps/details?id=com.integcubes.alnasar" target="_blank" rel="noopener" class="wc-link">Play Store ↗</a></div>
     <div class="work-card reveal d1"><div class="wc-n">02</div><span class="wc-icon">🔧</span><div class="wc-cat">Services Marketplace</div><div class="wc-title">Odlay — Services & Handy</div><p class="wc-desc">On-demand home services marketplace — book experts in minutes with live tracking and in-app payments.</p><div class="wc-tags"><span class="wc-tag">Flutter</span><span class="wc-tag">Firebase</span><span class="wc-tag">Maps API</span></div><a href="https://play.google.com/store/apps/details?id=com.odlay.eservices.ServicesApp" target="_blank" rel="noopener" class="wc-link">Play Store ↗</a></div>

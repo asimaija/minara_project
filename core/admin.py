@@ -10,7 +10,7 @@ class ServiceAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'store_link', 'created_at']
     list_editable = ['store_link']
-    fields = ['title', 'category', 'description', 'tech_stack', 'color', 'store_link']
+    fields = ['title', 'category', 'description', 'tech_stack', 'color', 'store_link', 'thumbnail']
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
