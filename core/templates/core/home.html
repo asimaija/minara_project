@@ -987,7 +987,15 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
   </div>
   <div class="work-grid">
     {% if projects %}{% for project in projects %}
-    <div class="work-card reveal"><div class="wc-n">0{{ forloop.counter }}</div><span class="wc-icon">📦</span><div class="wc-cat">{{ project.category }}</div><div class="wc-title">{{ project.title }}</div><p class="wc-desc">{{ project.description|truncatechars:120 }}</p><div class="wc-tags">{% for tech in project.tech_stack|split:"," %}<span class="wc-tag">{{ tech }}</span>{% endfor %}</div>{% if project.store_link %}<a href="{{ project.store_link }}" target="_blank" rel="noopener" class="wc-link">View App ↗</a>{% endif %}</div>
+    <div class="work-card reveal{% cycle '' ' d1' ' d2' %}">
+      <div class="wc-n">{% if forloop.counter < 10 %}0{{ forloop.counter }}{% else %}{{ forloop.counter }}{% endif %}</div>
+      <span class="wc-icon">{% with cat=project.category|lower %}{% if "government" in cat or "portal" in cat %}🏛️{% elif "market" in cat or "service" in cat %}🔧{% elif "deal" in cat or "shop" in cat or "e-commerce" in cat or "ecommerce" in cat %}🛍️{% elif "islam" in cat or "quran" in cat or "athan" in cat or "religio" in cat %}🕌{% elif "health" in cat or "lab" in cat or "medic" in cat %}💊{% elif "mobile" in cat or "app" in cat or "flutter" in cat %}📱{% elif "ai" in cat or "ml" in cat or "llm" in cat %}🤖{% elif "web" in cat or "django" in cat or "react" in cat %}🌐{% elif "automati" in cat or "scraping" in cat %}⚙️{% elif "educati" in cat %}📚{% else %}🚀{% endif %}{% endwith %}</span>
+      <div class="wc-cat">{{ project.category }}</div>
+      <div class="wc-title">{{ project.title }}</div>
+      <p class="wc-desc">{{ project.description|truncatechars:120 }}</p>
+      <div class="wc-tags">{% for tech in project.tech_stack|split:"," %}<span class="wc-tag">{{ tech }}</span>{% endfor %}</div>
+      {% if project.store_link %}<a href="{{ project.store_link }}" target="_blank" rel="noopener" class="wc-link">View App ↗</a>{% endif %}
+    </div>
     {% endfor %}{% else %}
     <div class="work-card reveal"><div class="wc-n">01</div><span class="wc-icon">🏛️</span><div class="wc-cat">Government Portal</div><div class="wc-title">Al-Nasar Services</div><p class="wc-desc">Integrated services portal with AI-powered routing and real-time document handling for 100K+ citizens/month.</p><div class="wc-tags"><span class="wc-tag">Django</span><span class="wc-tag">React</span><span class="wc-tag">PostgreSQL</span></div><a href="https://play.google.com/store/apps/details?id=com.integcubes.alnasar" target="_blank" rel="noopener" class="wc-link">Play Store ↗</a></div>
     <div class="work-card reveal d1"><div class="wc-n">02</div><span class="wc-icon">🔧</span><div class="wc-cat">Services Marketplace</div><div class="wc-title">Odlay — Services & Handy</div><p class="wc-desc">On-demand home services marketplace — book experts in minutes with live tracking and in-app payments.</p><div class="wc-tags"><span class="wc-tag">Flutter</span><span class="wc-tag">Firebase</span><span class="wc-tag">Maps API</span></div><a href="https://play.google.com/store/apps/details?id=com.odlay.eservices.ServicesApp" target="_blank" rel="noopener" class="wc-link">Play Store ↗</a></div>
