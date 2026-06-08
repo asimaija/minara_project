@@ -4,3 +4,4 @@ whitenoise
 python-decouple
 groq
 psycopg2-binary
+pillow
