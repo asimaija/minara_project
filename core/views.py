@@ -119,7 +119,7 @@ def home(request):
 
     return render(request, 'core/home.html', {
         'services': Service.objects.all(),
-        'projects': Project.objects.all()[:6],
+        'projects': Project.objects.all(),
         'testimonials': Testimonial.objects.all(),
         'whatsapp_url': wa_url,
         'WHATSAPP_NUMBER': WHATSAPP_NUMBER,
