@@ -56,25 +56,9 @@ body::after {
     rgba(0,0,0,0.03) 4px
   );
 }
-/* ── HERO SCAN SWEEP ── */
-.hero::after {
-  content: '';
-  position: absolute; left: 0; right: 0;
-  height: 2px; z-index: 3;
-  background: linear-gradient(90deg, transparent, rgba(196,42,66,0.6), transparent);
-  animation: hero-scan 6s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes hero-scan {
-  0% { top: 10%; opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 0.3; }
-  100% { top: 95%; opacity: 0; }
-}
-
 /* ── 3D CANVAS SCENE ── */
 #hero-canvas {
-  position: fixed;
+  position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 0;
 }
@@ -318,7 +302,64 @@ nav.scrolled {
 }
 .btn-outline:hover { border-color: var(--maroon3); color: var(--white); }
 
-/* ── 3D FLOATING TECH NODES ── */
+/* ── HERO 3D FLOATING CARDS ── */
+#hero-3d-scene {
+  position: absolute;
+  right: 4vw; top: 50%;
+  transform: translateY(-50%);
+  width: 380px; height: 460px;
+  perspective: 900px;
+  z-index: 2;
+  pointer-events: none;
+}
+.h3d-card {
+  position: absolute;
+  background: rgba(10,10,10,0.82);
+  border: 1px solid rgba(107,15,26,0.5);
+  backdrop-filter: blur(12px);
+  padding: 1rem 1.4rem;
+  display: flex; align-items: center; gap: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.75);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(107,15,26,0.2), inset 0 1px 0 rgba(255,255,255,0.04);
+  white-space: nowrap;
+  animation: card3d-float var(--dur,5s) ease-in-out infinite var(--delay,0s);
+  transform-style: preserve-3d;
+}
+.h3d-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196,42,66,0.6), transparent);
+}
+.h3d-icon { font-size: 1rem; flex-shrink: 0; }
+.h3d-label { color: var(--white); font-weight: 500; }
+.h3d-sub { font-size: 0.52rem; color: var(--muted); display: block; margin-top: 0.1rem; letter-spacing: 0.1em; }
+.h3d-badge {
+  margin-left: auto; font-size: 0.5rem; padding: 0.12rem 0.5rem;
+  background: rgba(107,15,26,0.3); border: 1px solid rgba(196,42,66,0.3);
+  color: var(--maroon3); letter-spacing: 0.12em;
+}
+@keyframes card3d-float {
+  0%,100% { transform: translateY(0px) rotateY(-6deg) rotateX(3deg) translateZ(0px); }
+  50%      { transform: translateY(-14px) rotateY(4deg) rotateX(-2deg) translateZ(20px); }
+}
+/* ── HERO 3D RING DECO ── */
+.h3d-ring-wrap {
+  position: absolute; bottom: -30px; right: 10px;
+  width: 180px; height: 180px;
+  perspective: 600px; pointer-events: none;
+}
+.h3d-ring {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(107,15,26,0.35);
+  position: absolute;
+  animation: h3d-spin 10s linear infinite;
+}
+.h3d-ring:nth-child(2){ width:120px;height:120px;top:30px;left:30px;border-color:rgba(196,42,66,0.25);animation-duration:7s;animation-direction:reverse; }
+.h3d-ring:nth-child(3){ width:60px;height:60px;top:60px;left:60px;border-color:rgba(196,42,66,0.4);animation-duration:4s; }
+@keyframes h3d-spin { from{transform:rotateY(0)rotateX(30deg)}to{transform:rotateY(360deg)rotateX(30deg)} }
 .tech-nodes {
   position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
   width: 420px; height: 420px; z-index: 2;
@@ -920,12 +961,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 <!-- NAV -->
 <nav id="nav">
   <a href="#home" class="logo">Min<span>ara</span></a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact" class="nav-cta">Start Project</a></li>
-  </ul>
+  <a href="#contact" class="nav-cta" style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:0.55rem 1.6rem;background:var(--maroon);color:var(--white);border:1px solid var(--maroon3);transition:all 0.3s;">Start Project</a>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -934,10 +970,6 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
   <div class="hero-grid-floor"></div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow" id="heroBadge">
-      <div class="eye-dot"></div>
-      AI-Native Studio &nbsp;·&nbsp; Lahore → Global
-    </div>
     <h1 class="hero-h1">
       <span class="l1" id="hLine1">WE BUILD</span>
       <span class="l2" id="hLine2">DIGITAL</span>
@@ -957,17 +989,6 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     </div>
   </div>
 
-  <!-- Floating Tech Nodes -->
-  <div class="tech-nodes" id="techNodes">
-    <div class="tnode" style="top:5%;left:10%;--dur:4s;--del:0s">React.js</div>
-    <div class="tnode" style="top:18%;left:55%;--dur:5s;--del:0.5s">Django</div>
-    <div class="tnode" style="top:35%;left:5%;--dur:6s;--del:1s">GPT-4o</div>
-    <div class="tnode" style="top:50%;left:65%;--dur:4.5s;--del:1.5s">Flutter</div>
-    <div class="tnode" style="top:65%;left:20%;--dur:5.5s;--del:0.8s">Supabase</div>
-    <div class="tnode" style="top:75%;left:60%;--dur:4s;--del:0.3s">AWS</div>
-    <div class="tnode" style="top:88%;left:10%;--dur:6.5s;--del:1.2s">Claude AI</div>
-    <div class="tnode" style="top:10%;left:80%;--dur:5s;--del:2s">Docker</div>
-  </div>
 </section>
 
 <!-- MARQUEE -->
@@ -998,85 +1019,6 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     <div class="nc-l">Response Time</div>
   </div>
 </div>
-
-<!-- ═══ TECH SHOWCASE ═══ -->
-<section class="tech-section section-pad" id="tech">
-  <div class="tech-section-inner">
-    <div>
-      <div class="sec-eyebrow reveal">Core Systems</div>
-      <h2 class="sec-h reveal d1">Our Tech<br><em>Stack</em></h2>
-      <p class="sec-sub reveal d2">Every tool selected for precision, reliability, and AI-native compatibility.</p>
-      <div class="tech-cube-scene reveal d3">
-        <div class="tech-cube">
-          <div class="cube-face front">REACT</div>
-          <div class="cube-face back">DJANGO</div>
-          <div class="cube-face right">GPT-4o</div>
-          <div class="cube-face left">FLUTTER</div>
-          <div class="cube-face top">CLOUD</div>
-          <div class="cube-face bottom">DATA</div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="tech-grid">
-        <div class="tech-cell reveal" data-idx="01">
-          <span class="tc-icon">⚙️</span>
-          <div class="tc-title">Backend Engine</div>
-          <div class="tc-line"></div>
-          <div class="tc-desc">Battle-tested Django and FastAPI for millions of requests. PostgreSQL, Redis, Celery.</div>
-          <div class="tc-tags"><span class="tc-tag">Django</span><span class="tc-tag">FastAPI</span><span class="tc-tag">PostgreSQL</span><span class="tc-tag">Redis</span></div>
-        </div>
-        <div class="tech-cell reveal d1" data-idx="02">
-          <span class="tc-icon">🤖</span>
-          <div class="tc-title">AI / ML Core</div>
-          <div class="tc-line"></div>
-          <div class="tc-desc">GPT-4o, Claude, Gemini with RAG pipelines, vector stores, and custom fine-tuned models.</div>
-          <div class="tc-tags"><span class="tc-tag">GPT-4o</span><span class="tc-tag">Claude</span><span class="tc-tag">LangChain</span><span class="tc-tag">Pinecone</span></div>
-        </div>
-        <div class="tech-cell reveal d2" data-idx="03">
-          <span class="tc-icon">📱</span>
-          <div class="tc-title">Mobile Runtime</div>
-          <div class="tc-line"></div>
-          <div class="tc-desc">Flutter and React Native for pixel-perfect cross-platform apps with native integration.</div>
-          <div class="tc-tags"><span class="tc-tag">Flutter</span><span class="tc-tag">React Native</span><span class="tc-tag">Firebase</span></div>
-        </div>
-        <div class="tech-cell reveal" data-idx="04">
-          <span class="tc-icon">🗄️</span>
-          <div class="tc-title">Data Layer</div>
-          <div class="tc-line"></div>
-          <div class="tc-desc">Supabase real-time backbone. Row-level security, subscriptions, Edge Functions — serverless.</div>
-          <div class="tc-tags"><span class="tc-tag">Supabase</span><span class="tc-tag">PostgreSQL</span><span class="tc-tag">Edge Functions</span></div>
-        </div>
-        <div class="tech-cell reveal d1" data-idx="05">
-          <span class="tc-icon">🌐</span>
-          <div class="tc-title">Frontend Layer</div>
-          <div class="tc-line"></div>
-          <div class="tc-desc">React, Next.js, Tailwind for blazing-fast interfaces with sub-second global loads.</div>
-          <div class="tc-tags"><span class="tc-tag">React</span><span class="tc-tag">Next.js</span><span class="tc-tag">Tailwind</span><span class="tc-tag">Vercel</span></div>
-        </div>
-        <div class="tech-cell reveal d2" data-idx="06">
-          <span class="tc-icon">☁️</span>
-          <div class="tc-title">Infrastructure</div>
-          <div class="tc-line"></div>
-          <div class="tc-desc">AWS, GCP, Docker/Kubernetes. Zero-downtime releases with CI/CD and auto-scaling.</div>
-          <div class="tc-tags"><span class="tc-tag">AWS</span><span class="tc-tag">Docker</span><span class="tc-tag">K8s</span><span class="tc-tag">CI/CD</span></div>
-        </div>
-      </div>
-      <div class="status-bar reveal">
-        <div class="sb-title"><div class="sb-dot"></div> All Systems Operational</div>
-        <div class="sb-metrics">
-          <div class="sb-m"><span class="sb-val">99.9%</span><div class="sb-key">Uptime</div></div>
-          <div class="sb-m"><span class="sb-val">&lt;120ms</span><div class="sb-key">Response</div></div>
-          <div class="sb-m"><span class="sb-val">50+</span><div class="sb-key">Live Apps</div></div>
-          <div class="sb-m"><span class="sb-val">1M+</span><div class="sb-key">API Calls/Mo</div></div>
-          <div class="sb-m"><span class="sb-val">0</span><div class="sb-key">Breaches</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="sec-divider"></div>
 
 <!-- ═══ SERVICES ═══ -->
 <section class="services-section section-pad" id="services">
@@ -1417,19 +1359,61 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     });
   }
 
-  /* ── LAYER 3: Shooting Stars ── */
+  /* ── LAYER 3: Shooting Stars with Tech Labels ── */
+  const MISSILE_TECHS = ['React','Django','GPT-4o','Flutter','AWS','Docker','Claude AI',
+    'Supabase','Redis','Next.js','FastAPI','PostgreSQL','LangChain','Firebase','TensorFlow','Kubernetes'];
+  let missileIdx = 0;
   let shooters = [];
+
+  // DOM overlay for tech labels
+  const techOverlay = document.createElement('div');
+  techOverlay.id = 'missile-tech-overlay';
+  techOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;';
+  document.body.appendChild(techOverlay);
+
   function spawnShooter(){
-    const angle = (-0.3 + Math.random() * 0.4) * Math.PI; // mostly rightward-downward
+    const angle = (-0.3 + Math.random() * 0.4) * Math.PI;
     const speed = 6 + Math.random() * 10;
+    const tech = MISSILE_TECHS[missileIdx % MISSILE_TECHS.length];
+    missileIdx++;
+
+    // Create floating tech label DOM element
+    const startX = Math.random() * w * 0.8;
+    const startY = Math.random() * h * 0.4;
+    const label = document.createElement('div');
+    label.className = 'missile-tech-label';
+    label.textContent = tech;
+    label.style.cssText = `
+      position:absolute;
+      left:${startX}px;top:${startY - 20}px;
+      font-family:'JetBrains Mono',monospace;
+      font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+      color:rgba(255,255,255,0.9);
+      background:rgba(107,15,26,0.75);
+      border:1px solid rgba(196,42,66,0.6);
+      padding:0.2rem 0.7rem;
+      white-space:nowrap;
+      border-radius:1px;
+      box-shadow:0 0 12px rgba(196,42,66,0.4),0 0 4px rgba(196,42,66,0.3);
+      opacity:0;
+      transition:opacity 0.15s;
+      pointer-events:none;
+      backdrop-filter:blur(4px);
+    `;
+    techOverlay.appendChild(label);
+    // Fade in
+    requestAnimationFrame(() => { label.style.opacity = '1'; });
+
     shooters.push({
-      x: Math.random() * w * 0.8,
-      y: Math.random() * h * 0.4,
+      x: startX,
+      y: startY,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed + 1,
       len: 60 + Math.random() * 100,
       alpha: 0.9,
-      life: 1
+      life: 1,
+      label,
+      tech
     });
   }
 
@@ -1460,13 +1444,12 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     { r: 0, radiusFrac: 0.38, speed: 0.0003,  dotCount: 14, alpha: 0.10 }
   ];
 
-  /* ─── INIT ─── */
   function init(){
-    w = canvas.width  = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+    const hero = canvas.parentElement;
+    w = canvas.width  = hero.offsetWidth;
+    h = canvas.height = hero.offsetHeight;
     mouseX = w / 2; mouseY = h / 2;
     mkStars();
-    mkNodes();
     mkStreams();
     mkNebulae();
     ORBIT_RINGS.forEach(o => o.r = 0);
@@ -1484,19 +1467,15 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     ];
   }
   function drawNebulae(){
-    const scrollY = window.scrollY;
     nebulae.forEach(n => {
-      /* nebulae are spread across full page; offset by scroll */
-      const ny = n.y - scrollY * 0.08;
-      if(ny < -n.ry * 2 || ny > h + n.ry * 2) return; /* skip off-screen */
-      const grad = ctx.createRadialGradient(n.x, ny, 0, n.x, ny, Math.max(n.rx, n.ry));
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, Math.max(n.rx, n.ry));
       grad.addColorStop(0, `rgba(${n.hue},${n.alpha})`);
       grad.addColorStop(0.4, `rgba(${n.hue},${n.alpha * 0.5})`);
       grad.addColorStop(1, `rgba(${n.hue},0)`);
       ctx.save();
       ctx.scale(1, n.ry / n.rx);
       ctx.beginPath();
-      ctx.arc(n.x, ny * (n.rx / n.ry), n.rx, 0, Math.PI*2);
+      ctx.arc(n.x, n.y * (n.rx / n.ry), n.rx, 0, Math.PI*2);
       ctx.fillStyle = grad;
       ctx.fill();
       ctx.restore();
@@ -1610,13 +1589,19 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     ctx.beginPath();
     ctx.moveTo(s.x, s.y);
     ctx.lineTo(s.x - s.vx * (s.len/10), s.y - s.vy * (s.len/10));
-    const grad = ctx.createLinearGradient(s.x, s.y, s.x - s.vx*8, s.y - s.vy*8);
+    const grad = ctx.createLinearGradient(s.x, s.y, s.x - s.vx*12, s.y - s.vy*12);
     grad.addColorStop(0, `rgba(255,255,255,${s.alpha})`);
-    grad.addColorStop(0.3, `rgba(196,42,66,${s.alpha*0.5})`);
+    grad.addColorStop(0.2, `rgba(255,120,120,${s.alpha*0.8})`);
+    grad.addColorStop(0.5, `rgba(196,42,66,${s.alpha*0.5})`);
     grad.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.strokeStyle = grad; ctx.lineWidth = 1.5;
-    ctx.shadowBlur = 6; ctx.shadowColor = 'rgba(255,255,255,0.6)';
+    ctx.strokeStyle = grad; ctx.lineWidth = 2.5;
+    ctx.shadowBlur = 12; ctx.shadowColor = 'rgba(255,100,100,0.8)';
     ctx.stroke(); ctx.shadowBlur = 0;
+    // bright head dot
+    ctx.beginPath(); ctx.arc(s.x, s.y, 2.5, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255,220,220,${s.alpha})`;
+    ctx.shadowBlur = 16; ctx.shadowColor = 'rgba(255,150,150,0.9)';
+    ctx.fill(); ctx.shadowBlur = 0;
   }
 
   /* ─── DRAW DATA STREAM ─── */
@@ -1697,45 +1682,49 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       layer.arr.forEach(s => {
         s.x += layer.cfg.speed * (li + 1) * 0.15;
         if(s.x > w) s.x = 0;
-        /* offset by scroll so stars are visible in current viewport */
-        const scrollY = window.scrollY;
-        const sy = s.y - scrollY * (0.05 + li * 0.03);
-        const drawS = Object.assign({}, s, { y: ((sy % h) + h) % h });
-        drawStar(drawS, li * 1.2);
+        drawStar(s, li * 1.2);
       });
     });
 
-    // Layer 2: Data streams (behind constellations)
+    // Layer 2: Data streams
     streams.forEach(s => drawStream(s));
 
     // Layer 3: Orbit rings
     drawOrbits();
 
-    // Layer 4: Constellation lines
-    nodes.forEach((n, i) => {
-      n.x = n.baseX + Math.cos(t * n.floatSpeed + n.floatOffset) * n.floatAmp;
-      n.y = n.baseY + Math.sin(t * n.floatSpeed * 0.7 + n.floatOffset) * n.floatAmp * 0.6;
-    });
-    drawConstellationLines();
-
-    // Layer 5: Node labels + dots
-    nodes.forEach((n, i) => drawNode(n, i));
-
-    // Layer 6: Central energy core
+    // Layer 4: Central energy core
     drawCore();
 
-    // Layer 7: Shooting stars
-    if(ts - lastShoot > (1500 + Math.random() * 2500)){
+    // Layer 5: Shooting stars with tech labels
+    if(ts - lastShoot > (800 + Math.random() * 1800)){
       spawnShooter();
-      if(Math.random() < 0.3) spawnShooter(); // occasional double
+      if(Math.random() < 0.4) spawnShooter();
       lastShoot = ts;
     }
-    shooters = shooters.filter(s => s.life > 0);
+    shooters = shooters.filter(s => {
+      if(s.life <= 0){
+        // Fade out and remove label
+        if(s.label){
+          s.label.style.transition = 'opacity 0.3s';
+          s.label.style.opacity = '0';
+          setTimeout(() => s.label && s.label.remove(), 350);
+          s.label = null;
+        }
+        return false;
+      }
+      return true;
+    });
     shooters.forEach(s => {
       drawShooter(s);
       s.x += s.vx; s.y += s.vy;
       s.life -= 0.018;
       s.alpha = s.life;
+      // Move DOM label with the missile head
+      if(s.label){
+        s.label.style.left = (s.x + 10) + 'px';
+        s.label.style.top = (s.y - 24) + 'px';
+        s.label.style.opacity = Math.min(1, s.life * 2).toString();
+      }
     });
 
     requestAnimationFrame(loop);
@@ -1768,8 +1757,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       el.style.opacity = '1'; el.style.transform = 'none';
     }, (delay + d) * 1000);
   }
-  show(document.getElementById('heroBadge'), 0);
-  show(document.getElementById('hLine1'), 0.1);
+  show(document.getElementById('hLine1'), 0);
   show(document.getElementById('hLine2'), 0.22);
   show(document.getElementById('hLine3'), 0.34);
   show(document.getElementById('heroMeta'), 0.5);
