@@ -74,7 +74,7 @@ body::after {
 
 /* ── 3D CANVAS SCENE ── */
 #hero-canvas {
-  position: absolute;
+  position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 0;
 }
@@ -193,6 +193,7 @@ nav.scrolled {
   display: flex; align-items: center;
   padding: 8rem 6vw 5rem;
   position: relative; overflow: hidden;
+  background: transparent;
 }
 /* 3D Grid floor */
 .hero-grid-floor {
@@ -378,12 +379,13 @@ nav.scrolled {
 .numbers-band {
   display: grid; grid-template-columns: repeat(4,1fr);
   border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.5);
 }
 .num-cell {
   padding: 3rem 2.5rem;
   border-right: 1px solid var(--border);
   position: relative; transition: background 0.3s; cursor: default;
-  background: var(--black2);
+  background: rgba(10,10,10,0.9);
   perspective: 500px;
 }
 .num-cell:last-child { border-right: none; }
@@ -409,7 +411,7 @@ nav.scrolled {
 .nc-l { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 0.5rem; }
 
 /* ── SECTION COMMONS ── */
-.section-pad { padding: 8rem 6vw; position: relative; }
+.section-pad { padding: 6rem 6vw; position: relative; }
 .sec-eyebrow {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
@@ -432,10 +434,10 @@ nav.scrolled {
 }
 .sec-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.9; max-width: 400px; }
 .services-head .sec-sub,
-.work-head .sec-sub { max-width: 420px; padding-top: 0.5rem; }
+.work-head .sec-sub { max-width: 420px; padding-top: 2.2rem; font-size: 1rem; line-height: 1.8; color: rgba(136,136,136,0.9); }
 
 /* ── 3D TECH CARDS ── */
-.tech-section { background: var(--black2); }
+.tech-section { background: rgba(10,10,10,0.88); }
 .tech-section-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
 .tech-cube-scene {
   width: 100%; max-width: 300px;
@@ -472,9 +474,14 @@ nav.scrolled {
   gap: 1px; background: var(--border); margin-top: 4rem;
 }
 .tech-cell {
-  background: var(--black2); padding: 2rem 1.8rem;
+  background: rgba(10,10,10,0.92); padding: 2rem 1.8rem;
   transition: all 0.4s ease; cursor: default; position: relative; overflow: hidden;
   transform-style: preserve-3d;
+  border: 1px solid transparent;
+}
+.tech-cell:hover {
+  border-color: rgba(107,15,26,0.3);
+  box-shadow: 0 0 30px rgba(107,15,26,0.15) inset;
 }
 .tech-cell::before {
   content: attr(data-idx);
@@ -503,7 +510,7 @@ nav.scrolled {
 
 /* Status Bar */
 .status-bar {
-  background: var(--black); border: 1px solid var(--border);
+  background: rgba(0,0,0,0.7); border: 1px solid var(--border);
   padding: 1.8rem 2.5rem; margin-top: 3rem;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;
 }
@@ -538,8 +545,8 @@ nav.scrolled {
 @keyframes ring-spin { from{transform:rotateY(0) rotateX(30deg)} to{transform:rotateY(360deg) rotateX(30deg)} }
 
 /* ── SERVICES ── */
-.services-section { background: var(--black); }
-.services-head { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 5rem; }
+.services-section { background: rgba(0,0,0,0.82); backdrop-filter: blur(0px); }
+.services-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 3.5rem; }
 .services-list { border-top: 1px solid var(--border); }
 .svc-row {
   display: grid; grid-template-columns: 56px 1fr 36px;
@@ -580,21 +587,17 @@ nav.scrolled {
 .svc-row:hover .svc-arr { opacity: 1; transform: translate(3px, -3px); }
 
 /* ── WORK ── */
-.work-section {
-  background: linear-gradient(180deg, var(--black2) 0%, rgba(10,0,2,1) 50%, var(--black2) 100%);
-}
-.work-head { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 5rem; }
-.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
+.work-section { background: rgba(10,10,10,0.85); }
+.work-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 3.5rem; }
+.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); align-items: stretch; }
 .work-card {
-  background: var(--black2); padding: 2.2rem 2rem;
+  background: rgba(10,10,10,0.95); padding: 2.2rem 2rem;
   position: relative; overflow: hidden; transition: all 0.4s;
   transform-style: preserve-3d;
-  border-top: 1px solid transparent;
-  border-image: linear-gradient(90deg, transparent, rgba(107,15,26,0.0), transparent) 1;
+  display: flex; flex-direction: column;
+  min-height: 280px;
 }
-.work-card:hover {
-  border-top: 1px solid rgba(196,42,66,0.4);
-}
+
 .work-card::before {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0;
   background: linear-gradient(to top, rgba(107,15,26,0.12), transparent);
@@ -620,7 +623,7 @@ nav.scrolled {
 }
 .work-card:hover .wc-title { color: var(--maroon3); }
 .wc-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.85; }
-.wc-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-top: 0.8rem; }
+
 .wc-tag {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.55rem; letter-spacing: 0.06em;
@@ -628,13 +631,14 @@ nav.scrolled {
   padding: 0.12rem 0.45rem; transition: all 0.3s;
 }
 .work-card:hover .wc-tag { border-color: var(--maroon3); color: var(--maroon3); }
+.wc-tags { margin-top: auto; padding-top: 0.8rem; display: flex; gap: 0.3rem; flex-wrap: wrap; }
 .wc-link {
   display: inline-flex; align-items: center; gap: 0.4rem;
-  margin-top: 0.8rem; font-family: 'JetBrains Mono', monospace;
+  margin-top: 1rem; font-family: 'JetBrains Mono', monospace;
   font-size: 0.6rem; letter-spacing: 0.1em;
   color: var(--maroon3); text-decoration: none; text-transform: uppercase;
   border-bottom: 1px solid rgba(107,15,26,0.3); padding-bottom: 0.15rem;
-  transition: all 0.3s;
+  transition: all 0.3s; width: fit-content;
 }
 .wc-link:hover { color: var(--maroon4); border-color: var(--maroon4); }
 .wc-thumb {
@@ -652,8 +656,8 @@ nav.scrolled {
 }
 
 /* ── ABOUT ── */
-.about-section { background: var(--black); }
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
+.about-section { background: rgba(0,0,0,0.82); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 .pillars { margin-top: 3rem; display: flex; flex-direction: column; gap: 0; }
 .pillar {
   display: flex; gap: 1.5rem; padding: 1.4rem 0;
@@ -672,9 +676,12 @@ nav.scrolled {
 
 /* Terminal window */
 .terminal {
-  background: var(--black2); border: 1px solid var(--border);
+  background: rgba(10,10,10,0.95); border: 1px solid var(--border);
   position: relative; overflow: hidden;
+  height: 100%; min-height: 400px;
+  display: flex; flex-direction: column;
 }
+.term-body { flex: 1; }
 .terminal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--maroon3), transparent); }
 .term-bar { display: flex; gap: 0.5rem; padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); align-items: center; }
 .term-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -690,7 +697,7 @@ nav.scrolled {
 @keyframes blink-cursor { 0%,100%{opacity:1}50%{opacity:0} }
 
 /* ── 3D PROCESS ── */
-.process-section { background: var(--black2); overflow: hidden; position: relative; }
+.process-section { background: rgba(10,10,10,0.85); overflow: hidden; position: relative; }
 .process-3d-bg {
   position: absolute; inset: 0;
   background-image: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(107,15,26,0.12) 0%, transparent 70%);
@@ -701,7 +708,7 @@ nav.scrolled {
   gap: 2px; background: var(--border); margin-top: 5rem;
 }
 .proc-step {
-  padding: 3rem 2rem; background: var(--black2);
+  padding: 3rem 2rem; background: rgba(10,10,10,0.9);
   position: relative; overflow: hidden; transition: all 0.4s;
   transform-style: preserve-3d;
 }
@@ -726,7 +733,7 @@ nav.scrolled {
 .proc-step:last-child .proc-connector { display: none; }
 
 /* ── CONTACT ── */
-.contact-section { background: var(--black); }
+.contact-section { background: rgba(0,0,0,0.82); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
 .cinfo { margin-top: 3rem; border-top: 1px solid var(--border); }
 .ci-row {
@@ -744,7 +751,7 @@ nav.scrolled {
 .ci-val { font-size: 0.88rem; color: var(--white); }
 
 .form-box {
-  background: var(--black2); border: 1px solid var(--border);
+  background: rgba(10,10,10,0.96); border: 1px solid var(--border);
   padding: 3rem; position: relative;
 }
 .form-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--maroon3), transparent); }
@@ -790,7 +797,7 @@ nav.scrolled {
 #form-success .fs-msg { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
 
 /* ── FOOTER ── */
-footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px solid var(--border); }
+footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px solid var(--border); }
 .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 5rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
 .flogo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.15em; text-decoration: none; color: var(--white); margin-bottom: 1rem; display: block; }
 .flogo span { color: var(--maroon3); }
@@ -872,7 +879,7 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
 .d1{transition-delay:0.1s} .d2{transition-delay:0.2s} .d3{transition-delay:0.3s} .d4{transition-delay:0.4s}
 
 /* ── SEC DIVIDER ── */
-.sec-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+.sec-divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(164,32,53,0.5), rgba(107,15,26,0.2), transparent); }
 
 /* ── MOBILE ── */
 @media(max-width:768px){
@@ -1357,9 +1364,9 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
 
   /* ── LAYER 1: Deep Star Field (3 depth layers) ── */
   const STAR_LAYERS = [
-    { count: 320, rMin: 0.3, rMax: 0.7,  speed: 0.015, alpha: 0.3  },
-    { count: 180, rMin: 0.5, rMax: 1.1,  speed: 0.025, alpha: 0.5  },
-    { count:  90, rMin: 0.8, rMax: 1.8,  speed: 0.04,  alpha: 0.85 }
+    { count: 400, rMin: 0.2, rMax: 0.7,  speed: 0.008, alpha: 0.28 },
+    { count: 220, rMin: 0.4, rMax: 1.0,  speed: 0.015, alpha: 0.48 },
+    { count: 100, rMin: 0.7, rMax: 1.8,  speed: 0.025, alpha: 0.85 }
   ];
   let starLayers = [];
 
@@ -1369,7 +1376,7 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
       for(let i = 0; i < cfg.count; i++){
         arr.push({
           x: Math.random() * w,
-          y: Math.random() * h,
+          y: Math.random() * h * 4,  /* full scroll height */
           r: cfg.rMin + Math.random() * (cfg.rMax - cfg.rMin),
           baseAlpha: cfg.alpha * (0.4 + Math.random() * 0.6),
           twinkleOffset: Math.random() * Math.PI * 2,
@@ -1455,8 +1462,8 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
 
   /* ─── INIT ─── */
   function init(){
-    w = canvas.width  = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
+    w = canvas.width  = window.innerWidth;
+    h = canvas.height = window.innerHeight;
     mouseX = w / 2; mouseY = h / 2;
     mkStars();
     mkNodes();
@@ -1469,21 +1476,27 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
   let nebulae = [];
   function mkNebulae(){
     nebulae = [
-      { x: w*0.62, y: h*0.42, rx: w*0.22, ry: h*0.25, hue: '107,15,26', alpha: 0.06 },
-      { x: w*0.15, y: h*0.3,  rx: w*0.12, ry: h*0.14, hue: '80,10,20',  alpha: 0.04 },
-      { x: w*0.8,  y: h*0.7,  rx: w*0.10, ry: h*0.12, hue: '140,20,40', alpha: 0.03 },
+      { x: w*0.65, y: h*0.35, rx: w*0.22, ry: h*0.20, hue: '107,15,26', alpha: 0.07 },
+      { x: w*0.12, y: h*0.25, rx: w*0.14, ry: h*0.13, hue: '80,10,20',  alpha: 0.05 },
+      { x: w*0.82, y: h*0.65, rx: w*0.12, ry: h*0.14, hue: '130,18,35', alpha: 0.04 },
+      { x: w*0.35, y: h*0.75, rx: w*0.18, ry: h*0.16, hue: '90,12,25',  alpha: 0.04 },
+      { x: w*0.55, y: h*0.55, rx: w*0.10, ry: h*0.08, hue: '150,25,45', alpha: 0.03 },
     ];
   }
   function drawNebulae(){
+    const scrollY = window.scrollY;
     nebulae.forEach(n => {
-      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, Math.max(n.rx, n.ry));
+      /* nebulae are spread across full page; offset by scroll */
+      const ny = n.y - scrollY * 0.08;
+      if(ny < -n.ry * 2 || ny > h + n.ry * 2) return; /* skip off-screen */
+      const grad = ctx.createRadialGradient(n.x, ny, 0, n.x, ny, Math.max(n.rx, n.ry));
       grad.addColorStop(0, `rgba(${n.hue},${n.alpha})`);
       grad.addColorStop(0.4, `rgba(${n.hue},${n.alpha * 0.5})`);
       grad.addColorStop(1, `rgba(${n.hue},0)`);
       ctx.save();
       ctx.scale(1, n.ry / n.rx);
       ctx.beginPath();
-      ctx.arc(n.x, n.y * (n.rx / n.ry), n.rx, 0, Math.PI*2);
+      ctx.arc(n.x, ny * (n.rx / n.ry), n.rx, 0, Math.PI*2);
       ctx.fillStyle = grad;
       ctx.fill();
       ctx.restore();
@@ -1684,7 +1697,11 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
       layer.arr.forEach(s => {
         s.x += layer.cfg.speed * (li + 1) * 0.15;
         if(s.x > w) s.x = 0;
-        drawStar(s, li * 1.2);
+        /* offset by scroll so stars are visible in current viewport */
+        const scrollY = window.scrollY;
+        const sy = s.y - scrollY * (0.05 + li * 0.03);
+        const drawS = Object.assign({}, s, { y: ((sy % h) + h) % h });
+        drawStar(drawS, li * 1.2);
       });
     });
 
@@ -1727,6 +1744,7 @@ footer { background: var(--black2); padding: 5rem 6vw 2rem; border-top: 1px soli
   init();
   requestAnimationFrame(loop);
   window.addEventListener('resize', init);
+  window.addEventListener('scroll', () => {}, { passive: true });
 })();
 
 /* ── LOADER ── */
