@@ -961,7 +961,12 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 <!-- NAV -->
 <nav id="nav">
   <a href="#home" class="logo">Min<span>ara</span></a>
-  <a href="#contact" class="nav-cta" style="font-size:0.72rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;padding:0.55rem 1.6rem;background:var(--maroon);color:var(--white);border:1px solid var(--maroon3);transition:all 0.3s;">Start Project</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Start Project</a></li>
+  </ul>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -1306,11 +1311,50 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
   /* ── LAYER 1: Deep Star Field (3 depth layers) ── */
   const STAR_LAYERS = [
-    { count: 400, rMin: 0.2, rMax: 0.7,  speed: 0.008, alpha: 0.28 },
-    { count: 220, rMin: 0.4, rMax: 1.0,  speed: 0.015, alpha: 0.48 },
-    { count: 100, rMin: 0.7, rMax: 1.8,  speed: 0.025, alpha: 0.85 }
+    { count: 280, rMin: 0.2, rMax: 0.7,  speed: 0.008, alpha: 0.28 },
+    { count: 160, rMin: 0.4, rMax: 1.0,  speed: 0.015, alpha: 0.48 },
+    { count: 60,  rMin: 0.7, rMax: 1.8,  speed: 0.025, alpha: 0.85 }
   ];
   let starLayers = [];
+
+  /* ── ASTRONAUT STARS: a handful of large glowing drifters ── */
+  let astroStars = [];
+  function mkAstroStars(){
+    astroStars = Array.from({ length: 7 }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: 2.2 + Math.random() * 2.2,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.12,
+      twinkle: Math.random() * Math.PI * 2,
+      twinkleSpeed: 0.6 + Math.random() * 0.8,
+      hue: Math.random() < 0.5 ? 'white' : 'maroon'
+    }));
+  }
+  function drawAstroStars(){
+    astroStars.forEach(s => {
+      s.x += s.vx; s.y += s.vy;
+      if(s.x < 0) s.x = w; if(s.x > w) s.x = 0;
+      if(s.y < 0) s.y = h; if(s.y > h) s.y = 0;
+      s.twinkle += s.twinkleSpeed * 0.016;
+      const glow = 0.55 + 0.45 * Math.sin(s.twinkle);
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r * glow, 0, Math.PI*2);
+      if(s.hue === 'maroon'){
+        ctx.fillStyle = `rgba(196,42,66,${0.7 * glow})`;
+        ctx.shadowBlur = 18; ctx.shadowColor = 'rgba(196,42,66,0.8)';
+      } else {
+        ctx.fillStyle = `rgba(255,255,255,${0.85 * glow})`;
+        ctx.shadowBlur = 14; ctx.shadowColor = 'rgba(200,220,255,0.9)';
+      }
+      ctx.fill(); ctx.shadowBlur = 0;
+      // cross sparkle
+      const arm = s.r * 3.5 * glow;
+      ctx.strokeStyle = s.hue === 'maroon' ? `rgba(196,42,66,${0.35*glow})` : `rgba(255,255,255,${0.3*glow})`;
+      ctx.lineWidth = 0.8;
+      ctx.beginPath(); ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm); ctx.stroke();
+    });
+  }
 
   function mkStars(){
     starLayers = STAR_LAYERS.map(cfg => {
@@ -1332,48 +1376,22 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     });
   }
 
-  /* ── LAYER 2: Tech Constellation Nodes ── */
-  const TECH_LABELS = ['React','Django','GPT-4o','Flutter','AWS','Docker',
-                       'Claude AI','Supabase','Redis','Next.js','K8s','FastAPI',
-                       'PostgreSQL','LangChain','Firebase','TensorFlow'];
-  let nodes = [];
-
-  function mkNodes(){
-    nodes = TECH_LABELS.map((label, i) => {
-      const angle = (i / TECH_LABELS.length) * Math.PI * 2;
-      const radiusFrac = 0.25 + Math.random() * 0.2;
-      const cx = w * 0.62, cy = h * 0.5;
-      const rx = Math.min(w, h) * radiusFrac;
-      const ry = Math.min(w, h) * radiusFrac * 0.6;
-      return {
-        label,
-        baseX: cx + Math.cos(angle) * rx + (Math.random()-0.5) * 80,
-        baseY: cy + Math.sin(angle) * ry + (Math.random()-0.5) * 60,
-        x: 0, y: 0,
-        floatAmp: 8 + Math.random() * 12,
-        floatSpeed: 0.3 + Math.random() * 0.5,
-        floatOffset: Math.random() * Math.PI * 2,
-        active: false,
-        pulseT: 0
-      };
-    });
-  }
-
   /* ── LAYER 3: Shooting Stars with Tech Labels ── */
   const MISSILE_TECHS = ['React','Django','GPT-4o','Flutter','AWS','Docker','Claude AI',
     'Supabase','Redis','Next.js','FastAPI','PostgreSQL','LangChain','Firebase','TensorFlow','Kubernetes'];
   let missileIdx = 0;
   let shooters = [];
 
-  // DOM overlay for tech labels
+  // DOM overlay — attached to the hero section so it clips with overflow:hidden
+  const heroSection = document.getElementById('home');
   const techOverlay = document.createElement('div');
   techOverlay.id = 'missile-tech-overlay';
-  techOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;';
-  document.body.appendChild(techOverlay);
+  techOverlay.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:hidden;';
+  heroSection.appendChild(techOverlay);
 
   function spawnShooter(){
     const angle = (-0.3 + Math.random() * 0.4) * Math.PI;
-    const speed = 6 + Math.random() * 10;
+    const speed = 1.8 + Math.random() * 2.2;
     const tech = MISSILE_TECHS[missileIdx % MISSILE_TECHS.length];
     missileIdx++;
 
@@ -1450,6 +1468,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     h = canvas.height = hero.offsetHeight;
     mouseX = w / 2; mouseY = h / 2;
     mkStars();
+    mkAstroStars();
     mkStreams();
     mkNebulae();
     ORBIT_RINGS.forEach(o => o.r = 0);
@@ -1686,6 +1705,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       });
     });
 
+    // Layer 1b: Astronaut (large glowing drifter) stars
+    drawAstroStars();
+
     // Layer 2: Data streams
     streams.forEach(s => drawStream(s));
 
@@ -1696,9 +1718,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     drawCore();
 
     // Layer 5: Shooting stars with tech labels
-    if(ts - lastShoot > (800 + Math.random() * 1800)){
+    if(ts - lastShoot > (2000 + Math.random() * 2500)){
       spawnShooter();
-      if(Math.random() < 0.4) spawnShooter();
+      if(Math.random() < 0.25) spawnShooter();
       lastShoot = ts;
     }
     shooters = shooters.filter(s => {
@@ -1717,7 +1739,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     shooters.forEach(s => {
       drawShooter(s);
       s.x += s.vx; s.y += s.vy;
-      s.life -= 0.018;
+      s.life -= 0.007;
       s.alpha = s.life;
       // Move DOM label with the missile head
       if(s.label){
