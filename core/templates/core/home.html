@@ -242,11 +242,16 @@ nav.scrolled {
   100% { background-position: -200% center; }
 }
 .hero-h1 .l2 {
-  display: block; color: transparent;
-  -webkit-text-stroke: 2px var(--maroon3);
+  display: block;
+  background: linear-gradient(90deg, var(--maroon3) 0%, #ff6b8a 50%, var(--maroon4) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 3s linear infinite reverse;
   opacity: 0; transform: translateY(40px);
+  text-shadow: none;
 }
-.hero-h1 .l3 { display: block; color: var(--maroon3); opacity: 0; transform: translateY(40px); }
 
 .hero-meta {
   display: flex; align-items: flex-start; gap: 4rem; flex-wrap: wrap;
@@ -941,6 +946,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 <body>
 
 <!-- CUSTOM CURSOR -->
+<canvas id="page-stars-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.7;"></canvas>
 <div class="custom-cursor" id="cursor"></div>
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-trail" id="cursor-trail"></div>
@@ -976,9 +982,8 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
   <div class="hero-content">
     <h1 class="hero-h1">
-      <span class="l1" id="hLine1">WE BUILD</span>
-      <span class="l2" id="hLine2">DIGITAL</span>
-      <span class="l3" id="hLine3">FUTURES.</span>
+      <span class="l1" id="hLine1">buildDigital</span>
+      <span class="l2" id="hLine2">future</span>
     </h1>
     <div class="hero-meta" id="heroMeta">
       <p class="hero-sub">Precision-crafted apps, AI platforms &amp; intelligent systems. <strong>50+ products shipped</strong> — zero compromises.</p>
@@ -1094,6 +1099,12 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       {% endif %}
     </div>
     {% endwith %}
+    {% empty %}
+    <div class="work-card-placeholder reveal" style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:4rem 2rem;border:1px dashed rgba(107,15,26,0.35);background:rgba(107,15,26,0.04);min-height:220px;">
+      <div style="font-size:2.5rem;opacity:0.4;">🚀</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.14em;color:var(--muted);opacity:0.6;">More Projects Coming Soon</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(107,15,26,0.5);text-transform:uppercase;">// Space reserved · Add via admin dashboard</div>
+    </div>
     {% endfor %}
   </div>
 </section>
@@ -1193,7 +1204,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
         </div>
         <div class="fg"><label class="flbl">Project Details</label><textarea name="message" class="ftxt" placeholder="Describe your project, budget, timeline, goals..." required></textarea></div>
         <button type="submit" class="fsub" id="form-submit-btn"><span>Send Message</span><span>↗</span></button>
-        <div class="wa-note">Saved directly — <span>no popup, no redirect</span></div>
+        <div class="wa-note">Opens <span>WhatsApp</span> with your message pre-filled</div>
       </form>
       <div id="form-success">
         <div class="fs-icon">✓</div>
@@ -1262,6 +1273,71 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 </div>
 
 <script>
+/* ── FULL-PAGE BACKGROUND STARS (pink + silver + white) ── */
+(function(){
+  const cv = document.getElementById('page-stars-canvas');
+  if(!cv) return;
+  const cx = cv.getContext('2d');
+  let W, H, stars = [], raf;
+
+  function resize(){
+    W = cv.width  = window.innerWidth;
+    H = cv.height = window.innerHeight;
+  }
+
+  function mkStars(){
+    stars = [];
+    const count = Math.floor((W * H) / 1800); // density relative to screen
+    for(let i = 0; i < count; i++){
+      const hueRoll = Math.random();
+      const hue = hueRoll < 0.28 ? 'pink' : hueRoll < 0.54 ? 'silver' : hueRoll < 0.62 ? 'maroon' : 'white';
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.15 + Math.random() * 0.8,
+        baseA: 0.25 + Math.random() * 0.55,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.3 + Math.random() * 0.9,
+        hue
+      });
+    }
+  }
+
+  let t = 0;
+  function draw(){
+    cx.clearRect(0, 0, W, H);
+    t += 0.016;
+    stars.forEach(s => {
+      const twinkle = 0.5 + 0.5 * Math.sin(t * s.speed + s.phase);
+      const a = s.baseA * (0.35 + 0.65 * twinkle);
+      cx.beginPath();
+      cx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      if(s.hue === 'pink'){
+        cx.fillStyle = `rgba(255,140,185,${a})`;
+        if(s.r > 0.6){ cx.shadowBlur = 4; cx.shadowColor = `rgba(255,100,170,0.7)`; }
+      } else if(s.hue === 'silver'){
+        cx.fillStyle = `rgba(195,215,235,${a * 0.85})`;
+        if(s.r > 0.6){ cx.shadowBlur = 3; cx.shadowColor = `rgba(180,205,240,0.5)`; }
+      } else if(s.hue === 'maroon'){
+        cx.fillStyle = `rgba(190,42,65,${a * 0.8})`;
+        cx.shadowBlur = 5; cx.shadowColor = `rgba(196,42,66,0.6)`;
+      } else {
+        cx.fillStyle = `rgba(255,255,255,${a})`;
+        cx.shadowBlur = s.r > 0.6 ? 2 : 0; cx.shadowColor = 'rgba(255,255,255,0.4)';
+      }
+      cx.fill(); cx.shadowBlur = 0;
+    });
+    raf = requestAnimationFrame(draw);
+  }
+
+  resize();
+  mkStars();
+  draw();
+  window.addEventListener('resize', () => { resize(); mkStars(); });
+})();
+</script>
+
+<script>
 /* ── CUSTOM CURSOR ── */
 (function(){
   const cursor = document.getElementById('cursor');
@@ -1311,9 +1387,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
   /* ── LAYER 1: Deep Star Field (3 depth layers) ── */
   const STAR_LAYERS = [
-    { count: 280, rMin: 0.2, rMax: 0.7,  speed: 0.008, alpha: 0.28 },
-    { count: 160, rMin: 0.4, rMax: 1.0,  speed: 0.015, alpha: 0.48 },
-    { count: 60,  rMin: 0.7, rMax: 1.8,  speed: 0.025, alpha: 0.85 }
+    { count: 420, rMin: 0.15, rMax: 0.55, speed: 0.006, alpha: 0.30 },
+    { count: 260, rMin: 0.3,  rMax: 0.85, speed: 0.012, alpha: 0.52 },
+    { count: 100, rMin: 0.6,  rMax: 1.5,  speed: 0.022, alpha: 0.90 }
   ];
   let starLayers = [];
 
@@ -1368,8 +1444,8 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
           twinkleOffset: Math.random() * Math.PI * 2,
           twinkleSpeed: 0.4 + Math.random() * 1.2,
           speed: cfg.speed,
-          /* color: most white, some cool-tinted, rare maroon */
-          hue: Math.random() < 0.08 ? 'maroon' : Math.random() < 0.15 ? 'cool' : 'white'
+          /* color: most white/silver, some pink, some cool-tinted, rare maroon */
+          hue: Math.random() < 0.08 ? 'maroon' : Math.random() < 0.20 ? 'pink' : Math.random() < 0.20 ? 'silver' : Math.random() < 0.10 ? 'cool' : 'white'
         });
       }
       return { cfg, arr };
@@ -1518,6 +1594,12 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       ctx.fillStyle = `rgba(168,32,53,${a})`;
       // glow for maroon stars
       ctx.shadowBlur = 6; ctx.shadowColor = 'rgba(196,42,66,0.6)';
+    } else if(s.hue === 'pink'){
+      ctx.fillStyle = `rgba(255,150,190,${a})`;
+      ctx.shadowBlur = s.r > 0.8 ? 5 : 0; ctx.shadowColor = 'rgba(255,120,180,0.7)';
+    } else if(s.hue === 'silver'){
+      ctx.fillStyle = `rgba(192,210,230,${a * 0.85})`;
+      ctx.shadowBlur = s.r > 1.0 ? 4 : 0; ctx.shadowColor = 'rgba(180,200,240,0.5)';
     } else if(s.hue === 'cool'){
       ctx.fillStyle = `rgba(180,200,255,${a * 0.7})`;
       ctx.shadowBlur = 0;
@@ -1781,9 +1863,8 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
   }
   show(document.getElementById('hLine1'), 0);
   show(document.getElementById('hLine2'), 0.22);
-  show(document.getElementById('hLine3'), 0.34);
-  show(document.getElementById('heroMeta'), 0.5);
-  show(document.getElementById('heroBtns'), 0.65);
+  show(document.getElementById('heroMeta'), 0.40);
+  show(document.getElementById('heroBtns'), 0.55);
 })();
 
 /* ── NAV SCROLL ── */
@@ -1840,18 +1921,29 @@ document.querySelectorAll('.toast').forEach((t, i) => {
   const btn = document.getElementById('form-submit-btn');
   const success = document.getElementById('form-success');
   if(!form) return;
-  form.addEventListener('submit', async function(e){
+  form.addEventListener('submit', function(e){
     e.preventDefault();
-    btn.disabled = true; btn.querySelector('span').textContent = 'Sending…';
-    const formData = new FormData(form);
-    const csrfToken = document.cookie.match('(^|;) ?csrftoken=([^;]*)(;|$)')?.[2] || '';
-    try{
-      await fetch(form.action, { method:'POST', headers:{'X-CSRFToken':csrfToken,'X-Requested-With':'XMLHttpRequest'}, body:formData });
-      form.style.display = 'none'; success.style.display = 'block';
-    } catch(err){
-      btn.disabled = false; btn.querySelector('span').textContent = 'Send Message';
-      alert('Something went wrong. Please WhatsApp us at +92 332 5384557');
-    }
+    const name    = (form.querySelector('[name="name"]')?.value || '').trim();
+    const email   = (form.querySelector('[name="email"]')?.value || '').trim();
+    const service = (form.querySelector('[name="service"]')?.value || '').trim();
+    const message = (form.querySelector('[name="message"]')?.value || '').trim();
+
+    const waText =
+      `Hi Minara! 👋\n\n` +
+      `*Name:* ${name}\n` +
+      `*Email:* ${email}\n` +
+      `*Service:* ${service}\n\n` +
+      `*Project Details:*\n${message}\n\n` +
+      `_Sent from minara.dev contact form_`;
+
+    const waURL = `https://wa.me/923325384557?text=${encodeURIComponent(waText)}`;
+    window.open(waURL, '_blank');
+
+    // Show success state after opening WhatsApp
+    setTimeout(() => {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    }, 400);
   });
 })();
 
