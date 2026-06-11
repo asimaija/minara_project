@@ -630,13 +630,14 @@ nav.scrolled {
 /* ── WORK ── */
 .work-section { background: rgba(10,10,10,0.85); }
 .work-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 3.5rem; }
-.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); align-items: start; align-content: start; }
+.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; align-items: start; align-content: start; }
 .work-card {
   background: rgba(10,10,10,0.95); padding: 2.2rem 2rem;
   position: relative; overflow: hidden; transition: all 0.4s;
   transform-style: preserve-3d;
   display: flex; flex-direction: column;
   min-height: 0;
+  border: 1px solid var(--border);
 }
 
 .work-card::before {
@@ -1311,9 +1312,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
   /* ── LAYER 1: Deep Star Field (3 depth layers) ── */
   const STAR_LAYERS = [
-    { count: 900, rMin: 0.2, rMax: 0.7,  speed: 0.002, alpha: 0.35 },
-    { count: 500, rMin: 0.4, rMax: 1.0,  speed: 0.004, alpha: 0.55 },
-    { count: 200, rMin: 0.7, rMax: 2.2,  speed: 0.006, alpha: 0.95 }
+    { count: 1800, rMin: 0.2, rMax: 0.7,  speed: 0.002, alpha: 0.45 },
+    { count: 900, rMin: 0.4, rMax: 1.2,  speed: 0.004, alpha: 0.65 },
+    { count: 350, rMin: 0.8, rMax: 2.5,  speed: 0.006, alpha: 1.0 }
   ];
   let starLayers = [];
 
@@ -1328,7 +1329,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       vy: (Math.random() - 0.5) * 0.03,
       twinkle: Math.random() * Math.PI * 2,
       twinkleSpeed: 0.6 + Math.random() * 0.8,
-      hue: Math.random() < 0.5 ? 'white' : 'maroon'
+      hue: Math.random() < 0.3 ? 'white' : Math.random() < 0.4 ? 'pink' : Math.random() < 0.5 ? 'silver' : 'maroon'
     }));
   }
   function drawAstroStars(){
@@ -1342,6 +1343,12 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       if(s.hue === 'maroon'){
         ctx.fillStyle = `rgba(196,42,66,${0.7 * glow})`;
         ctx.shadowBlur = 18; ctx.shadowColor = 'rgba(196,42,66,0.8)';
+      } else if(s.hue === 'pink'){
+        ctx.fillStyle = `rgba(255,182,193,${0.85 * glow})`;
+        ctx.shadowBlur = 16; ctx.shadowColor = 'rgba(255,150,180,0.85)';
+      } else if(s.hue === 'silver'){
+        ctx.fillStyle = `rgba(192,200,215,${0.85 * glow})`;
+        ctx.shadowBlur = 14; ctx.shadowColor = 'rgba(200,210,230,0.7)';
       } else {
         ctx.fillStyle = `rgba(255,255,255,${0.85 * glow})`;
         ctx.shadowBlur = 14; ctx.shadowColor = 'rgba(200,220,255,0.9)';
@@ -1349,7 +1356,8 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       ctx.fill(); ctx.shadowBlur = 0;
       // cross sparkle
       const arm = s.r * 3.5 * glow;
-      ctx.strokeStyle = s.hue === 'maroon' ? `rgba(196,42,66,${0.35*glow})` : `rgba(255,255,255,${0.3*glow})`;
+      const armClr = s.hue==='maroon'?`rgba(196,42,66,${0.35*glow})`:s.hue==='pink'?`rgba(255,182,193,${0.35*glow})`:s.hue==='silver'?`rgba(192,200,215,${0.3*glow})`:`rgba(255,255,255,${0.3*glow})`;
+      ctx.strokeStyle = armClr;
       ctx.lineWidth = 0.8;
       ctx.beginPath(); ctx.moveTo(s.x - arm, s.y); ctx.lineTo(s.x + arm, s.y); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(s.x, s.y - arm); ctx.lineTo(s.x, s.y + arm); ctx.stroke();
@@ -1369,7 +1377,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
           twinkleSpeed: 0.4 + Math.random() * 1.2,
           speed: cfg.speed,
           /* color: most white, some cool-tinted, rare maroon */
-          hue: Math.random() < 0.08 ? 'maroon' : Math.random() < 0.15 ? 'cool' : 'white'
+          hue: Math.random() < 0.08 ? 'maroon' : Math.random() < 0.25 ? 'pink' : Math.random() < 0.25 ? 'silver' : 'white'
         });
       }
       return { cfg, arr };
@@ -1396,9 +1404,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     missileIdx++;
 
     // Create floating tech label DOM element
-    // Spawn only in right half (free space), away from the hero text on the left
-    const startX = w * 0.55 + Math.random() * w * 0.42;
-    const startY = Math.random() * h * 0.85;
+    // Spawn strictly in top-right corner — free space above/right of the hero text
+    const startX = w * 0.52 + Math.random() * w * 0.45;
+    const startY = Math.random() * h * 0.55;
     const label = document.createElement('div');
     label.className = 'missile-tech-label';
     label.textContent = tech;
@@ -1517,11 +1525,13 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
     if(s.hue === 'maroon'){
       ctx.fillStyle = `rgba(168,32,53,${a})`;
-      // glow for maroon stars
       ctx.shadowBlur = 6; ctx.shadowColor = 'rgba(196,42,66,0.6)';
-    } else if(s.hue === 'cool'){
-      ctx.fillStyle = `rgba(180,200,255,${a * 0.7})`;
-      ctx.shadowBlur = 0;
+    } else if(s.hue === 'pink'){
+      ctx.fillStyle = `rgba(255,182,193,${a})`;
+      ctx.shadowBlur = s.r > 1.0 ? 5 : 0; ctx.shadowColor = 'rgba(255,150,180,0.7)';
+    } else if(s.hue === 'silver'){
+      ctx.fillStyle = `rgba(192,200,215,${a})`;
+      ctx.shadowBlur = s.r > 1.0 ? 4 : 0; ctx.shadowColor = 'rgba(200,210,230,0.5)';
     } else {
       ctx.fillStyle = `rgba(255,255,255,${a})`;
       ctx.shadowBlur = s.r > 1.2 ? 3 : 0;
