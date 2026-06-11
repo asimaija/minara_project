@@ -628,9 +628,9 @@ nav.scrolled {
 .svc-row:hover .svc-arr { opacity: 1; transform: translate(3px, -3px); }
 
 /* ── WORK ── */
-.work-section { background: rgba(10,10,10,0.85); }
+.work-section { background: var(--black); }
 .work-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 3.5rem; }
-.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; align-items: start; align-content: start; }
+.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; align-items: start; align-content: start; background: var(--black); }
 .work-card {
   background: rgba(10,10,10,0.95); padding: 2.2rem 2rem;
   position: relative; overflow: hidden; transition: all 0.4s;
@@ -977,8 +977,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
   <div class="hero-content">
     <h1 class="hero-h1">
-      <span class="l1" id="hLine1">WE BUILD</span>
-      <span class="l2" id="hLine2">DIGITAL</span>
+      <span class="l1" id="hLine1">WE BUILD DIGITAL</span>
       <span class="l3" id="hLine3">FUTURES.</span>
     </h1>
     <div class="hero-meta" id="heroMeta">
@@ -1830,20 +1829,29 @@ document.querySelectorAll('.toast').forEach((t, i) => {
   setTimeout(() => { t.style.transition = 'opacity .4s'; t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 5000 + i * 300);
 });
 
-/* ── CONTACT FORM → WhatsApp ── */
+/* ── CONTACT FORM → Save to DB + Open WhatsApp ── */
 (function(){
   const form = document.getElementById('contact-form');
   const btn = document.getElementById('form-submit-btn');
   const success = document.getElementById('form-success');
   if(!form) return;
-  form.addEventListener('submit', function(e){
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
+    btn.disabled = true; btn.querySelector('span').textContent = 'Sending…';
     const name    = form.querySelector('[name="name"]').value.trim();
     const email   = form.querySelector('[name="email"]').value.trim();
     const service = form.querySelector('[name="service"]').value.trim();
     const message = form.querySelector('[name="message"]').value.trim();
-    const text = `Hi Manara! 👋%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Service:* ${encodeURIComponent(service)}%0A%0A*Project Details:*%0A${encodeURIComponent(message)}`;
-    window.open(`https://wa.me/923325384557?text=${text}`, '_blank');
+    // Build WhatsApp message
+    const waText = `Hi Manara! 👋%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Service:* ${encodeURIComponent(service)}%0A%0A*Project Details:*%0A${encodeURIComponent(message)}`;
+    // Save to DB via AJAX
+    try {
+      const formData = new FormData(form);
+      const csrfToken = document.cookie.match('(^|;) ?csrftoken=([^;]*)(;|$)')?.[2] || '';
+      await fetch(form.action, { method:'POST', headers:{'X-CSRFToken':csrfToken,'X-Requested-With':'XMLHttpRequest'}, body:formData });
+    } catch(err){ /* silent — still open WhatsApp */ }
+    // Open WhatsApp
+    window.open(`https://wa.me/923325384557?text=${waText}`, '_blank');
     form.style.display = 'none'; success.style.display = 'block';
   });
 })();
