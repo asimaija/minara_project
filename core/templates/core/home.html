@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minara — AI Digital Studio</title>
+<title>Manara — AI Digital Studio</title>
 {% load static %}
 {% load custom_filters %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════
-   MINARA — 3D TECH REDESIGN
+   MANARA — 3D TECH REDESIGN
    Palette: Pure Black · Deep Maroon · Sharp White
 ═══════════════════════════════════════════════════ */
 :root {
@@ -199,7 +199,7 @@ nav.scrolled {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem; letter-spacing: 0.22em;
   color: var(--maroon3); text-transform: uppercase; margin-bottom: 2rem;
-  opacity: 0; transform: translateY(20px);
+  opacity: 1; transform: none;
   border: 1px solid rgba(107,15,26,0.3);
   padding: 0.4rem 1rem;
   background: rgba(107,15,26,0.08);
@@ -235,27 +235,22 @@ nav.scrolled {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer-text 4s linear infinite;
-  opacity: 0; transform: translateY(40px);
+  opacity: 1; transform: none;
 }
 @keyframes shimmer-text {
   0% { background-position: 200% center; }
   100% { background-position: -200% center; }
 }
 .hero-h1 .l2 {
-  display: block;
-  background: linear-gradient(90deg, var(--maroon3) 0%, #ff6b8a 50%, var(--maroon4) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer-text 3s linear infinite reverse;
-  opacity: 0; transform: translateY(40px);
-  text-shadow: none;
+  display: block; color: transparent;
+  -webkit-text-stroke: 2px var(--maroon3);
+  opacity: 1; transform: none;
 }
+.hero-h1 .l3 { display: block; color: var(--maroon3); opacity: 1; transform: none; }
 
 .hero-meta {
   display: flex; align-items: flex-start; gap: 4rem; flex-wrap: wrap;
-  opacity: 0; transform: translateY(20px);
+  opacity: 1; transform: none;
 }
 .hero-sub {
   font-size: 0.95rem; color: var(--muted); line-height: 1.9;
@@ -275,7 +270,7 @@ nav.scrolled {
 
 .hero-btns {
   display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 3rem;
-  opacity: 0; transform: translateY(20px);
+  opacity: 1; transform: none;
 }
 .btn-prime {
   background: var(--maroon); color: var(--white);
@@ -635,13 +630,13 @@ nav.scrolled {
 /* ── WORK ── */
 .work-section { background: rgba(10,10,10,0.85); }
 .work-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 3.5rem; }
-.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); align-items: stretch; }
+.work-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); align-items: start; align-content: start; }
 .work-card {
   background: rgba(10,10,10,0.95); padding: 2.2rem 2rem;
   position: relative; overflow: hidden; transition: all 0.4s;
   transform-style: preserve-3d;
   display: flex; flex-direction: column;
-  min-height: 280px;
+  min-height: 0;
 }
 
 .work-card::before {
@@ -946,14 +941,13 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 <body>
 
 <!-- CUSTOM CURSOR -->
-<canvas id="page-stars-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.7;"></canvas>
 <div class="custom-cursor" id="cursor"></div>
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-trail" id="cursor-trail"></div>
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="ld-logo">Min<span>ara</span></div>
+  <div class="ld-logo">Man<span>ara</span></div>
   <div class="ld-sub">Initializing<span>_</span></div>
   <div class="ld-bar"><div class="ld-fill"></div></div>
 </div>
@@ -966,7 +960,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#home" class="logo">Min<span>ara</span></a>
+  <a href="#home" class="logo">Man<span>ara</span></a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
@@ -982,8 +976,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
   <div class="hero-content">
     <h1 class="hero-h1">
-      <span class="l1" id="hLine1">buildDigital</span>
-      <span class="l2" id="hLine2">future</span>
+      <span class="l1" id="hLine1">WE BUILD</span>
+      <span class="l2" id="hLine2">DIGITAL</span>
+      <span class="l3" id="hLine3">FUTURES.</span>
     </h1>
     <div class="hero-meta" id="heroMeta">
       <p class="hero-sub">Precision-crafted apps, AI platforms &amp; intelligent systems. <strong>50+ products shipped</strong> — zero compromises.</p>
@@ -1099,12 +1094,6 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       {% endif %}
     </div>
     {% endwith %}
-    {% empty %}
-    <div class="work-card-placeholder reveal" style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:4rem 2rem;border:1px dashed rgba(107,15,26,0.35);background:rgba(107,15,26,0.04);min-height:220px;">
-      <div style="font-size:2.5rem;opacity:0.4;">🚀</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.14em;color:var(--muted);opacity:0.6;">More Projects Coming Soon</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(107,15,26,0.5);text-transform:uppercase;">// Space reserved · Add via admin dashboard</div>
-    </div>
     {% endfor %}
   </div>
 </section>
@@ -1115,11 +1104,11 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 <section class="about-section section-pad" id="about">
   <div class="about-grid">
     <div>
-      <div class="sec-eyebrow reveal">Why Minara</div>
+      <div class="sec-eyebrow reveal">Why Manara</div>
       <h2 class="sec-h reveal d1">Built Different.<br><em>Built Better.</em></h2>
       <p class="sec-sub reveal d2">A boutique AI-era studio from Lahore with a global mindset.</p>
       <div class="pillars reveal d2">
-        <div class="pillar"><div class="pillar-icon">🔥</div><div><h4>Obsessive Quality</h4><p>We review every commit, sweat every detail. If it ships from Minara, it's built right.</p></div></div>
+        <div class="pillar"><div class="pillar-icon">🔥</div><div><h4>Obsessive Quality</h4><p>We review every commit, sweat every detail. If it ships from Manara, it's built right.</p></div></div>
         <div class="pillar"><div class="pillar-icon">⚡</div><div><h4>Lightning Delivery</h4><p>Agile sprints, daily updates, transparent timelines. You'll never wonder what's happening.</p></div></div>
         <div class="pillar"><div class="pillar-icon">🧠</div><div><h4>AI-Native Thinking</h4><p>Intelligence is a first-class citizen from day one of design, not bolted on at the end.</p></div></div>
         <div class="pillar"><div class="pillar-icon">💬</div><div><h4>Always Reachable</h4><p>WhatsApp, Slack, or email — real-time comms always. We're your team, not a vendor.</p></div></div>
@@ -1127,9 +1116,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     </div>
     <div class="reveal from-right">
       <div class="terminal">
-        <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><div class="term-title">minara_ai.py</div></div>
+        <div class="term-bar"><div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div><div class="term-title">manara_ai.py</div></div>
         <div class="term-body">
-          <div><span class="ck">class</span> <span class="cv">MinaraAI</span><span class="cw">:</span></div>
+          <div><span class="ck">class</span> <span class="cv">ManaraAI</span><span class="cw">:</span></div>
           <div>&nbsp;&nbsp;<span class="cm">"""AI studio. Lahore → World."""</span></div>
           <br>
           <div>&nbsp;&nbsp;<span class="ck">mission</span> <span class="cw">=</span> <span class="cs">"Build AI Futures"</span></div>
@@ -1180,7 +1169,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       <h2 class="sec-h reveal d1">Let's Build<br>Something <em>Epic</em></h2>
       <div class="cinfo reveal d2">
         <div class="ci-row"><div class="ci-icon">📍</div><div><div class="ci-lbl">Location</div><div class="ci-val">Lahore, Pakistan — Working Globally</div></div></div>
-        <div class="ci-row"><div class="ci-icon">📧</div><div><div class="ci-lbl">Email</div><div class="ci-val">hello@minara.dev</div></div></div>
+        <div class="ci-row"><div class="ci-icon">📧</div><div><div class="ci-lbl">Email</div><div class="ci-val">hello@manara.dev</div></div></div>
         <div class="ci-row"><div class="ci-icon">💬</div><div><div class="ci-lbl">WhatsApp</div><div class="ci-val">+92 332 5384557</div></div></div>
         <div class="ci-row"><div class="ci-icon">⚡</div><div><div class="ci-lbl">Response Time</div><div class="ci-val">Within 2 hours — guaranteed</div></div></div>
       </div>
@@ -1204,7 +1193,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
         </div>
         <div class="fg"><label class="flbl">Project Details</label><textarea name="message" class="ftxt" placeholder="Describe your project, budget, timeline, goals..." required></textarea></div>
         <button type="submit" class="fsub" id="form-submit-btn"><span>Send Message</span><span>↗</span></button>
-        <div class="wa-note">Opens <span>WhatsApp</span> with your message pre-filled</div>
+        <div class="wa-note">Saved directly — <span>no popup, no redirect</span></div>
       </form>
       <div id="form-success">
         <div class="fs-icon">✓</div>
@@ -1219,7 +1208,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 <footer>
   <div class="footer-inner">
     <div class="fbrand">
-      <a href="#home" class="flogo">Min<span>ara</span></a>
+      <a href="#home" class="flogo">Man<span>ara</span></a>
       <p>AI-powered digital studio crafting extraordinary apps and experiences. Based in Lahore, building for the world.</p>
     </div>
     <div class="fcol">
@@ -1229,13 +1218,13 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     </div>
     <div class="fcol">
       <h5>Connect</h5>
-      <a href="mailto:hello@minara.dev">Email Us</a>
+      <a href="mailto:hello@manara.dev">Email Us</a>
       <a href="https://wa.me/923325384557" target="_blank">WhatsApp</a>
       <a href="#contact">Start a Project</a>
     </div>
   </div>
   <div class="footer-copy">
-    <span class="fc-l">© 2025 Minara — Digital Architects of Tomorrow</span>
+    <span class="fc-l">© 2025 Manara — Digital Architects of Tomorrow</span>
     <span class="fc-r">// Built in Lahore · Shipped Globally</span>
   </div>
 </footer>
@@ -1250,13 +1239,13 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
   <div class="chat-head">
     <div class="chat-avatar">🤖</div>
     <div>
-      <div class="chat-head-name">Minara AI</div>
+      <div class="chat-head-name">Manara AI</div>
       <div class="chat-status"><div class="status-dot"></div><span>Online — instant replies</span></div>
     </div>
     <button id="chat-close">✕</button>
   </div>
   <div class="chat-msgs" id="chat-msgs">
-    <div class="chat-msg bot">👋 Hello! I'm <strong>Minara AI</strong> — ask me anything about our services, pricing, or portfolio!</div>
+    <div class="chat-msg bot">👋 Hello! I'm <strong>Manara AI</strong> — ask me anything about our services, pricing, or portfolio!</div>
   </div>
   <div class="chat-suggestions">
     <button class="chat-pill" onclick="sendSug(this)">💰 Pricing</button>
@@ -1271,71 +1260,6 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     <button id="chat-send">➤</button>
   </div>
 </div>
-
-<script>
-/* ── FULL-PAGE BACKGROUND STARS (pink + silver + white) ── */
-(function(){
-  const cv = document.getElementById('page-stars-canvas');
-  if(!cv) return;
-  const cx = cv.getContext('2d');
-  let W, H, stars = [], raf;
-
-  function resize(){
-    W = cv.width  = window.innerWidth;
-    H = cv.height = window.innerHeight;
-  }
-
-  function mkStars(){
-    stars = [];
-    const count = Math.floor((W * H) / 1800); // density relative to screen
-    for(let i = 0; i < count; i++){
-      const hueRoll = Math.random();
-      const hue = hueRoll < 0.28 ? 'pink' : hueRoll < 0.54 ? 'silver' : hueRoll < 0.62 ? 'maroon' : 'white';
-      stars.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: 0.15 + Math.random() * 0.8,
-        baseA: 0.25 + Math.random() * 0.55,
-        phase: Math.random() * Math.PI * 2,
-        speed: 0.3 + Math.random() * 0.9,
-        hue
-      });
-    }
-  }
-
-  let t = 0;
-  function draw(){
-    cx.clearRect(0, 0, W, H);
-    t += 0.016;
-    stars.forEach(s => {
-      const twinkle = 0.5 + 0.5 * Math.sin(t * s.speed + s.phase);
-      const a = s.baseA * (0.35 + 0.65 * twinkle);
-      cx.beginPath();
-      cx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      if(s.hue === 'pink'){
-        cx.fillStyle = `rgba(255,140,185,${a})`;
-        if(s.r > 0.6){ cx.shadowBlur = 4; cx.shadowColor = `rgba(255,100,170,0.7)`; }
-      } else if(s.hue === 'silver'){
-        cx.fillStyle = `rgba(195,215,235,${a * 0.85})`;
-        if(s.r > 0.6){ cx.shadowBlur = 3; cx.shadowColor = `rgba(180,205,240,0.5)`; }
-      } else if(s.hue === 'maroon'){
-        cx.fillStyle = `rgba(190,42,65,${a * 0.8})`;
-        cx.shadowBlur = 5; cx.shadowColor = `rgba(196,42,66,0.6)`;
-      } else {
-        cx.fillStyle = `rgba(255,255,255,${a})`;
-        cx.shadowBlur = s.r > 0.6 ? 2 : 0; cx.shadowColor = 'rgba(255,255,255,0.4)';
-      }
-      cx.fill(); cx.shadowBlur = 0;
-    });
-    raf = requestAnimationFrame(draw);
-  }
-
-  resize();
-  mkStars();
-  draw();
-  window.addEventListener('resize', () => { resize(); mkStars(); });
-})();
-</script>
 
 <script>
 /* ── CUSTOM CURSOR ── */
@@ -1387,21 +1311,21 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
 
   /* ── LAYER 1: Deep Star Field (3 depth layers) ── */
   const STAR_LAYERS = [
-    { count: 420, rMin: 0.15, rMax: 0.55, speed: 0.006, alpha: 0.30 },
-    { count: 260, rMin: 0.3,  rMax: 0.85, speed: 0.012, alpha: 0.52 },
-    { count: 100, rMin: 0.6,  rMax: 1.5,  speed: 0.022, alpha: 0.90 }
+    { count: 900, rMin: 0.2, rMax: 0.7,  speed: 0.002, alpha: 0.35 },
+    { count: 500, rMin: 0.4, rMax: 1.0,  speed: 0.004, alpha: 0.55 },
+    { count: 200, rMin: 0.7, rMax: 2.2,  speed: 0.006, alpha: 0.95 }
   ];
   let starLayers = [];
 
   /* ── ASTRONAUT STARS: a handful of large glowing drifters ── */
   let astroStars = [];
   function mkAstroStars(){
-    astroStars = Array.from({ length: 7 }, () => ({
+    astroStars = Array.from({ length: 18 }, () => ({
       x: Math.random() * w,
       y: Math.random() * h,
       r: 2.2 + Math.random() * 2.2,
-      vx: (Math.random() - 0.5) * 0.18,
-      vy: (Math.random() - 0.5) * 0.12,
+      vx: (Math.random() - 0.5) * 0.04,
+      vy: (Math.random() - 0.5) * 0.03,
       twinkle: Math.random() * Math.PI * 2,
       twinkleSpeed: 0.6 + Math.random() * 0.8,
       hue: Math.random() < 0.5 ? 'white' : 'maroon'
@@ -1438,14 +1362,14 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       for(let i = 0; i < cfg.count; i++){
         arr.push({
           x: Math.random() * w,
-          y: Math.random() * h * 4,  /* full scroll height */
+          y: Math.random() * h,  /* fill visible canvas */
           r: cfg.rMin + Math.random() * (cfg.rMax - cfg.rMin),
           baseAlpha: cfg.alpha * (0.4 + Math.random() * 0.6),
           twinkleOffset: Math.random() * Math.PI * 2,
           twinkleSpeed: 0.4 + Math.random() * 1.2,
           speed: cfg.speed,
-          /* color: most white/silver, some pink, some cool-tinted, rare maroon */
-          hue: Math.random() < 0.08 ? 'maroon' : Math.random() < 0.20 ? 'pink' : Math.random() < 0.20 ? 'silver' : Math.random() < 0.10 ? 'cool' : 'white'
+          /* color: most white, some cool-tinted, rare maroon */
+          hue: Math.random() < 0.08 ? 'maroon' : Math.random() < 0.15 ? 'cool' : 'white'
         });
       }
       return { cfg, arr };
@@ -1472,8 +1396,9 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     missileIdx++;
 
     // Create floating tech label DOM element
-    const startX = Math.random() * w * 0.8;
-    const startY = Math.random() * h * 0.4;
+    // Spawn only in right half (free space), away from the hero text on the left
+    const startX = w * 0.55 + Math.random() * w * 0.42;
+    const startY = Math.random() * h * 0.85;
     const label = document.createElement('div');
     label.className = 'missile-tech-label';
     label.textContent = tech;
@@ -1594,12 +1519,6 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
       ctx.fillStyle = `rgba(168,32,53,${a})`;
       // glow for maroon stars
       ctx.shadowBlur = 6; ctx.shadowColor = 'rgba(196,42,66,0.6)';
-    } else if(s.hue === 'pink'){
-      ctx.fillStyle = `rgba(255,150,190,${a})`;
-      ctx.shadowBlur = s.r > 0.8 ? 5 : 0; ctx.shadowColor = 'rgba(255,120,180,0.7)';
-    } else if(s.hue === 'silver'){
-      ctx.fillStyle = `rgba(192,210,230,${a * 0.85})`;
-      ctx.shadowBlur = s.r > 1.0 ? 4 : 0; ctx.shadowColor = 'rgba(180,200,240,0.5)';
     } else if(s.hue === 'cool'){
       ctx.fillStyle = `rgba(180,200,255,${a * 0.7})`;
       ctx.shadowBlur = 0;
@@ -1781,7 +1700,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
     // Layer 1: Stars
     starLayers.forEach((layer, li) => {
       layer.arr.forEach(s => {
-        s.x += layer.cfg.speed * (li + 1) * 0.15;
+        s.x += layer.cfg.speed * (li + 1) * 0.04;
         if(s.x > w) s.x = 0;
         drawStar(s, li * 1.2);
       });
@@ -1851,21 +1770,7 @@ footer { background: rgba(5,5,5,0.95); padding: 5rem 6vw 2rem; border-top: 1px s
   requestAnimationFrame(tick);
 })();
 
-/* ── HERO ENTRANCE ── */
-(function(){
-  const delay = 2.4;
-  function show(el, d){
-    if(!el) return;
-    setTimeout(() => {
-      el.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1)';
-      el.style.opacity = '1'; el.style.transform = 'none';
-    }, (delay + d) * 1000);
-  }
-  show(document.getElementById('hLine1'), 0);
-  show(document.getElementById('hLine2'), 0.22);
-  show(document.getElementById('heroMeta'), 0.40);
-  show(document.getElementById('heroBtns'), 0.55);
-})();
+/* Hero entrance animations removed */
 
 /* ── NAV SCROLL ── */
 window.addEventListener('scroll', () =>
@@ -1915,7 +1820,7 @@ document.querySelectorAll('.toast').forEach((t, i) => {
   setTimeout(() => { t.style.transition = 'opacity .4s'; t.style.opacity = '0'; setTimeout(() => t.remove(), 400); }, 5000 + i * 300);
 });
 
-/* ── CONTACT FORM ── */
+/* ── CONTACT FORM → WhatsApp ── */
 (function(){
   const form = document.getElementById('contact-form');
   const btn = document.getElementById('form-submit-btn');
@@ -1923,27 +1828,13 @@ document.querySelectorAll('.toast').forEach((t, i) => {
   if(!form) return;
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    const name    = (form.querySelector('[name="name"]')?.value || '').trim();
-    const email   = (form.querySelector('[name="email"]')?.value || '').trim();
-    const service = (form.querySelector('[name="service"]')?.value || '').trim();
-    const message = (form.querySelector('[name="message"]')?.value || '').trim();
-
-    const waText =
-      `Hi Minara! 👋\n\n` +
-      `*Name:* ${name}\n` +
-      `*Email:* ${email}\n` +
-      `*Service:* ${service}\n\n` +
-      `*Project Details:*\n${message}\n\n` +
-      `_Sent from minara.dev contact form_`;
-
-    const waURL = `https://wa.me/923325384557?text=${encodeURIComponent(waText)}`;
-    window.open(waURL, '_blank');
-
-    // Show success state after opening WhatsApp
-    setTimeout(() => {
-      form.style.display = 'none';
-      success.style.display = 'block';
-    }, 400);
+    const name    = form.querySelector('[name="name"]').value.trim();
+    const email   = form.querySelector('[name="email"]').value.trim();
+    const service = form.querySelector('[name="service"]').value.trim();
+    const message = form.querySelector('[name="message"]').value.trim();
+    const text = `Hi Manara! 👋%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Service:* ${encodeURIComponent(service)}%0A%0A*Project Details:*%0A${encodeURIComponent(message)}`;
+    window.open(`https://wa.me/923325384557?text=${text}`, '_blank');
+    form.style.display = 'none'; success.style.display = 'block';
   });
 })();
 
